@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="http://www.webglearth.com/v2/api.js"></script>
+    <script>
+      var earth;
+      var stage = 1;
+      function initialize() {
+        earth = new WE.map("earth_div", { atmosphere: true, sky: true });
+        WE.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
+          earth
+        );
+
+        var marker = WE.marker(
+          [51.25, -0.52]
+          // (iconUrl = "plane_v3.ico")
+        ).addTo(earth);
+        marker.bindPopup(
+          "<b>Depart From</b><br>London Gatwick<br /><span style='font-size:10px;color:#999'>Click for airport information</span>",
+          { maxWidth: 150, closeButton: true }
+        );
+
+        var marker2 = WE.marker(
+          [28.48, -16.33]
+          // (iconUrl = "plane_v3.ico")
+        ).addTo(earth);
+        marker2.bindPopup(
+          "<b>Arrive At</b><br>Santa Cruz de Tenerife<br /><span style='font-size:10px;color:#999'>Click for airport information</span>",
+          { maxWidth: 150, closeButton: true }
+        );
+
+        earth.setView([51.505, 0], 4);
+      }
+
+      function sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+
+      async function moveMap() {
+        console.log("move map " + stage);
+        if (stage == 1) {
+          for (var i = 400; i < 600; i++) {
+            earth.setView([51.505, 0], i / 100);
+            await sleep(2);
+          }
+          stage++;
+        } else if (stage == 2) {
+          stage++;
+          var options = {
+            color: "#0f0",
+            opacity: 0,
+            fillColor: "#0f0",
+            fillOpacity: 0.6,
+            weight: 2,
+          };
+          var polygonB = WE.polygon(
+            [
+              [51.25, -0.52],
+              [51.25, -0.5],
+              [28.48, -16.33],
+              [28.48, -16.35],
+            ],
+            options
+          ).addTo(earth);
+        } else if (stage == 3) {
+          stage++;
+          earth.panTo([28.48, -16.35]);
+        } else if (stage == 4) {
+          stage++;
+          for (var i = 600; i > 300; i--) {
+            earth.setView([51.505, 0], i / 100);
+            await sleep(2);
+          }
+          var before = null;
+          requestAnimationFrame(function animate(now) {
+            var c = earth.getPosition();
+            var elapsed = before ? now - before : 0;
+            before = now;
+            earth.setCenter([c[0], c[1] + 0.1 * (elapsed / 30)]);
+            requestAnimationFrame(animate);
+          });
+        } else if (stage == 6) {
+          stage = 1;
+          earth.setView([51.505, 0], 2);
+          earth.setZoom(6);
+        }
+      }
+    </script>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: black;
+      }
+      #earth_div {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+      }
+
+      .logo {
+        position: absolute;
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 7%;
+        z-index: 9999;
+      }
+    </style>
+    <title>WebGL Earth API: Markers</title>
+  </head>
+  <body onload="initialize()">
+    <img
+      class="logo"
+      src="https://www.onthebeach.co.uk/packs/application/logos/onthebeach/otb-marketing-eb82d8f446f1a254e699ac099b333683.svg"
+      onclick="moveMap()"
+    />
+
+    <div id="earth_div"></div>
+  </body>
+</html>
