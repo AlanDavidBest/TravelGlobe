@@ -4,10 +4,15 @@ import { Viewer, Entity, PolygonGraphics } from "resium";
 import Plane from "../plane/Plane";
 import CesiumContext from "../../CesiumContext";
 import countries from "../../data/countries.geo.json";
+import EntityCollection from "cesium/Source/DataSources/EntityCollection";
 
 const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
 const pointGraphics = { pixelSize: 10 };
 const dummyCredit = document.createElement("div");
+
+
+//Cartesian3.fromDegreesArray(countries.features[0].geometry.coordinates)))
+
 
 const positions = Cartesian3.fromDegreesArray([
   -5.661949, 54.554603, -6.197885, 53.867565, -6.95373, 54.073702, -7.572168,
@@ -55,9 +60,39 @@ export default class Global extends React.Component {
         homeButton={false}
         geocoder={false}
       >
-        <Entity name="United Kingdom" description="United Kingdom Polygon">
+        
+            <Entity> {
+                countries.features.filter(country => country.geometry.type === 'Polygon').map((country, i) => {
+                    var countryCoordinates = [].concat.apply([], country.geometry.coordinates[0]);
+                    return (
+                        <Entity name={country.id} description={country.properties.name}>
+                            <PolygonGraphics hierarchy={Cartesian3.fromDegreesArray(countryCoordinates)} fill={true} material={new Color(1.0, 1.0, 1.0, 0)} outline={true} outlineColor={Color.RED} outlineWidth={10} />;
+                        </Entity>
+                    )
+                })
+            }
+            </Entity>
+            <Entity> {
+                countries.features.filter(country => country.geometry.type === 'MultiPolygon').map((country, i) => {
+                    return (
+                            country.geometry.coordinates.map((polygon, j) => {
+                                var  polyCoords = [].concat.apply([], polygon[0])
+                                return (
+                                    <Entity name={country.id} description={country.properties.name}>
+                                        <PolygonGraphics hierarchy={Cartesian3.fromDegreesArray(polyCoords)} fill={true} material={new Color(1.0, 1.0, 1.0, 0)} outline={true} outlineColor={Color.RED} outlineWidth={10}/>;
+                                    </Entity>
+                                )
+                            }
+                            )
+                    )
+                        }
+                )
+            }
+            </Entity>
+       
+        {/* <Entity name="United Kingdom" description="United Kingdom Polygon">
           <PolygonGraphics hierarchy={positions} material={Color.GREEN} />
-        </Entity>
+        </Entity> */}
 
         <Entity position={position} point={pointGraphics} />
 
