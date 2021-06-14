@@ -1,7 +1,8 @@
 import { Cartesian3 } from "cesium";
-import { Viewer, Entity, Model } from "resium";
+import { Viewer, Entity } from "resium";
 import "./App.css";
 import Plane from "./components/plane/Plane";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
 const pointGraphics = { pixelSize: 10 };
