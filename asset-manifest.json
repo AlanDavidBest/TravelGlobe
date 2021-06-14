@@ -1,14 +1,15 @@
 {
   "files": {
-    "main.css": "/TravelGlobe/static/css/main.1635e87c.chunk.css",
-    "main.js": "/TravelGlobe/static/js/main.9fc63eeb.chunk.js",
-    "main.js.map": "/TravelGlobe/static/js/main.9fc63eeb.chunk.js.map",
-    "runtime-main.js": "/TravelGlobe/static/js/runtime-main.31d95c54.js",
-    "runtime-main.js.map": "/TravelGlobe/static/js/runtime-main.31d95c54.js.map",
-    "static/js/2.d201193f.chunk.js": "/TravelGlobe/static/js/2.d201193f.chunk.js",
-    "static/js/2.d201193f.chunk.js.map": "/TravelGlobe/static/js/2.d201193f.chunk.js.map",
-    "static/js/3.9e1d5020.chunk.js": "/TravelGlobe/static/js/3.9e1d5020.chunk.js",
-    "static/js/3.9e1d5020.chunk.js.map": "/TravelGlobe/static/js/3.9e1d5020.chunk.js.map",
+    "main.css": "/TravelGlobe/static/css/main.d560bd98.chunk.css",
+    "main.js": "/TravelGlobe/static/js/main.e2e98dd7.chunk.js",
+    "main.js.map": "/TravelGlobe/static/js/main.e2e98dd7.chunk.js.map",
+    "runtime-main.js": "/TravelGlobe/static/js/runtime-main.b723c282.js",
+    "runtime-main.js.map": "/TravelGlobe/static/js/runtime-main.b723c282.js.map",
+    "static/css/2.61b4cb56.chunk.css": "/TravelGlobe/static/css/2.61b4cb56.chunk.css",
+    "static/js/2.a66d18a0.chunk.js": "/TravelGlobe/static/js/2.a66d18a0.chunk.js",
+    "static/js/2.a66d18a0.chunk.js.map": "/TravelGlobe/static/js/2.a66d18a0.chunk.js.map",
+    "static/js/3.363a099f.chunk.js": "/TravelGlobe/static/js/3.363a099f.chunk.js",
+    "static/js/3.363a099f.chunk.js.map": "/TravelGlobe/static/js/3.363a099f.chunk.js.map",
     "cesium/Assets/IAU2006_XYS/IAU2006_XYS_0.json": "/TravelGlobe/cesium/Assets/IAU2006_XYS/IAU2006_XYS_0.json",
     "cesium/Assets/IAU2006_XYS/IAU2006_XYS_1.json": "/TravelGlobe/cesium/Assets/IAU2006_XYS/IAU2006_XYS_1.json",
     "cesium/Assets/IAU2006_XYS/IAU2006_XYS_10.json": "/TravelGlobe/cesium/Assets/IAU2006_XYS/IAU2006_XYS_10.json",
@@ -375,13 +376,15 @@
     "cesium/Workers/upsampleQuantizedTerrainMesh.js": "/TravelGlobe/cesium/Workers/upsampleQuantizedTerrainMesh.js",
     "cesium/Workers/when-208fe5b0.js": "/TravelGlobe/cesium/Workers/when-208fe5b0.js",
     "index.html": "/TravelGlobe/index.html",
-    "static/css/main.1635e87c.chunk.css.map": "/TravelGlobe/static/css/main.1635e87c.chunk.css.map",
-    "static/js/2.d201193f.chunk.js.LICENSE.txt": "/TravelGlobe/static/js/2.d201193f.chunk.js.LICENSE.txt"
+    "static/css/2.61b4cb56.chunk.css.map": "/TravelGlobe/static/css/2.61b4cb56.chunk.css.map",
+    "static/css/main.d560bd98.chunk.css.map": "/TravelGlobe/static/css/main.d560bd98.chunk.css.map",
+    "static/js/2.a66d18a0.chunk.js.LICENSE.txt": "/TravelGlobe/static/js/2.a66d18a0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.31d95c54.js",
-    "static/js/2.d201193f.chunk.js",
-    "static/css/main.1635e87c.chunk.css",
-    "static/js/main.9fc63eeb.chunk.js"
+    "static/js/runtime-main.b723c282.js",
+    "static/css/2.61b4cb56.chunk.css",
+    "static/js/2.a66d18a0.chunk.js",
+    "static/css/main.d560bd98.chunk.css",
+    "static/js/main.e2e98dd7.chunk.js"
   ]
 }
