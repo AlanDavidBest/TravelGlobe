@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <script src="v2/api.js"></script>
+    <script src="countries.geo.json" type="text/javascript"></script>
+    <script>
+       function coordPoly(earth, countryPoly, coords) {
+        for (insa = 0; insa < coords.length; insa++) {
+          var point = coords[insa];
+          var remapped = [];
+          remapped.push(point[1]);
+          remapped.push(point[0]);
+          countryPoly.push(remapped);
+        }
+        var cp = WE.polygon(countryPoly, {fillColor: '#0000ff', fillOpacity: 0.9})
+        cp.addTo(earth);
+      }
+
+      function initialize() {
+        if (window.location.href.substr(0, 5) === 'file:')
+          alert("This file must be accessed via http:// or https:// to run properly.");
+        var earth = new WE.map('earth_div', {sky: true});
+        earth.setView([46.8011, 8.2266], 4);
+        //WE.tileLayer('http://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}').addTo(earth);
+        WE.tileLayer('localhost:8080/{z}/{y}/{x}').addTo(earth);
+       
+        WE.marker([53.1902982,-3.0734647]).addTo(earth);
+
+        for (step =0; step < countries.features.length; step++) {
+          var country = countries.features[step];
+          //alert(country.geometry.type);
+          for (ins = 0; ins < country.geometry.coordinates.length; ins++) {
+            var countryPoly = [];
+            var coords = country.geometry.coordinates[ins];
+              if (country.geometry.type === "Polygon") {
+                // for (insa = 0; insa < coords.length; insa++) {
+                //   var point = coords[insa];
+                //   var remapped = [];
+                //   remapped.push(point[1]);
+                //   remapped.push(point[0]);
+                //   countryPoly.push(remapped);
+                // }
+                // var cp = WE.polygon(countryPoly, {color: '#9090ff', fillColor: '#0000ff', fillOpacity: 0.9})
+                // cp.addTo(earth);
+
+                coordPoly(earth, countryPoly, coords);
+              } else {
+                for (insa = 0; insa < coords.length; insa++) {
+                  for(insb = 0; insb < coords[insa].length; insb++) {
+                    var point = coords[insa][insb];
+                    var remapped = [];
+                    remapped.push(point[1]);
+                    remapped.push(point[0]);
+                    countryPoly.push(remapped);
+                    }
+                    var cp = WE.polygon(countryPoly, {color: '#9090ff', fillColor: '#0000ff', fillOpacity: 0.9})
+
+                    cp.addTo(earth);
+                    //coordPoly(earth, countryPoly, coords);
+                }
+              }
+            }
+
+        }
+        //alert(countries.features[0].geometry.coordinates[0]);
+        WE.geoJSON(countries).addTo(earth);
+        WE.marker([51.345781,3.314971]).addTo(earth);
+      }
+    </script>
+      <style type="text/css">
+      html, body{padding: 0; margin: 0;}
+      #earth_div{top: 0; right: 0; bottom: 0; left: 0;
+                 position: absolute !important;
+                 background-image: -webkit-gradient(
+                   linear,
+                   left bottom,
+                   left top,
+                   color-stop(0, rgb(253,253,253)),
+                   color-stop(0.15, rgb(253,253,253)),
+                   color-stop(0.53, rgb(223,223,223)),
+                   color-stop(0.56, rgb(255,255,255)),
+                   color-stop(1, rgb(253,253,253))
+                   );
+                 background-image: -moz-linear-gradient(
+                   center bottom,
+                   rgb(253,253,253) 0%,
+                   rgb(253,253,253) 15%,
+                   rgb(223,223,223) 53%,
+                   rgb(255,255,255) 56%,
+                   rgb(253,253,253) 100%
+                   );
+      }
+    </style>
+    <title>WebGL Earth API: Custom Tiles</title>
+  </head>
+  <body onload="initialize()">
+    <div id="earth_div"></div>
+  </body>
+</html>
