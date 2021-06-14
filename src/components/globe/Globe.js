@@ -1,7 +1,8 @@
-import React, { useState, createRef } from "react";
-import { Cartesian3, Color } from "cesium";
+import React, { createRef } from "react";
+import { Cartesian2, Cartesian3, Color } from "cesium";
 import { Viewer, Entity, PolygonGraphics } from "resium";
 import Plane from "../plane/Plane";
+import Info from "../info/Info"
 import CesiumContext from "../../CesiumContext";
 import countries from "../../data/countries.geo.json";
 
@@ -28,10 +29,27 @@ const positions = Cartesian3.fromDegreesArray([
   57.818848, -5.009999, 58.630013, -4.211495, 58.550845, -3.005005, 58.635,
 ]);
 
+const screenClickToCartesian3 = (current, x, y) => {
+  const scene = current?.cesiumElement?.scene;
+  if (!scene) return;
+  const ellipsoid = scene.globe.ellipsoid;
+  return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
+}
+
 export default class Global extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      cardPosition: {
+        x: 0,
+        y: 0
+      }
+    }
+
     this.ref = createRef();
+
+    this.onEntityClick = this.onEntityClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,30 +57,43 @@ export default class Global extends React.Component {
       this.context.setInstance(this.ref.current.cesiumElement);
     }
   }
+
+  onEntityClick = ({ position: { x, y }}) => {
+    const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
+
+    this.setState({
+      cardPosition: { x, y }
+    })
+  }
+
   render() {
     return (
-      <Viewer
-        ref={this.ref}
-        full
-        creditContainer={dummyCredit}
-        timeline={false}
-        animation={false}
-        fullscreenButton={false}
-        sceneModePicker={false}
-        baseLayerPicker={true}
-        projectionPicker={false}
-        navigationHelpButton={false}
-        homeButton={false}
-        geocoder={false}
-      >
-        <Entity name="United Kingdom" description="United Kingdom Polygon">
-          <PolygonGraphics hierarchy={positions} material={Color.GREEN} />
-        </Entity>
+      <div>
+        <Viewer
+          ref={this.ref}
+          full
+          creditContainer={dummyCredit}
+          timeline={false}
+          animation={false}
+          fullscreenButton={false}
+          sceneModePicker={false}
+          baseLayerPicker={true}
+          projectionPicker={false}
+          navigationHelpButton={false}
+          homeButton={false}
+          geocoder={false}
+        >
+          <Entity name="United Kingdom" description="United Kingdom Polygon">
+            <PolygonGraphics hierarchy={positions} material={Color.GREEN} />
+          </Entity>
 
-        <Entity position={position} point={pointGraphics} />
 
-        <Plane longitude={-0.124625} latitude={51.510357} elevation={100000} />
-      </Viewer>
+          <Entity onClick={this.onEntityClick} position={position} point={pointGraphics} />
+
+          <Plane longitude={-0.124625} latitude={51.510357} elevation={100000} />
+        </Viewer>
+        <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+      </div>
     );
   }
 }
