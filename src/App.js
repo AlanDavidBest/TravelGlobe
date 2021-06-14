@@ -10,20 +10,10 @@ import OtbImage from "./components/otbimage/OtbImage";
 function App() {
   return (
     <div className="App">
-      {/* <Container fluid>
-        <Row>
-            <Col md={2} id="sidebar-wrapper">      
-              
-            </Col>
-            <Col  md={10} id="page-content-wrapper"> */}
-              <SideBar />
-              <Globe />
-              <OtbImage />
-            {/* </Col> 
-        </Row>
-      </Container> */}
+      <SideBar />
+      <Globe />
+      <OtbImage />
     </div>
-
   );
 }
 
