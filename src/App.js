@@ -1,30 +1,19 @@
-import { Cartesian3 } from "cesium";
-import { Viewer, Entity } from "resium";
-import './App.css';
-
-const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
-const pointGraphics = { pixelSize: 10 };
-
-const dummyCredit = document.createElement("div");
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import SideBar from "./components/nav/SideBar.js";
+import Globe from "./components/globe/Globe.js";
+import "./components/nav/SideBar.css";
+import OtbImage from "./components/otbimage/OtbImage";
+import CesiumContext, { state }  from "./CesiumContext"
 
 function App() {
   return (
     <div className="App">
-      <Viewer 
-          full 
-          creditContainer={dummyCredit} 
-          timeline={false} 
-          animation={false} 
-          fullscreenButton={false} 
-          sceneModePicker={false}
-          baseLayerPicker={true}
-          projectionPicker={false}
-          navigationHelpButton={false}
-          homeButton={false}
-          geocoder={false}
-      >
-        <Entity position={position} point={pointGraphics} />
-      </Viewer>
+      <CesiumContext.Provider value={state}>
+        <SideBar />
+        <Globe />
+        <OtbImage />
+      </CesiumContext.Provider>
     </div>
   );
 }

@@ -1,0 +1,11 @@
+.sidebar {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;  
+}
+
+
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */

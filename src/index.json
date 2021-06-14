@@ -1,0 +1,11 @@
+{
+  "data": [
+    {
+      "id": "ba929500-8ce1-4d6e-b25b-beda76d8ad71",
+      "name": "Example Map Point",
+      "thumbnail": "http://google.com/test.jpg",
+      "latitude": 53.478062,
+      "longitude": -2.244666
+    }
+  ]
+}
