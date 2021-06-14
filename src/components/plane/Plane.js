@@ -10,7 +10,7 @@ function Plane(props) {
         maximumScale: 30000,
         minimumPixelSize: 512,
       }}
-      tracked
+      // tracked
     />
   );
 }

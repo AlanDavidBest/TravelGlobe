@@ -1,34 +1,27 @@
-import { Cartesian3 } from "cesium";
-import { Viewer, Entity } from "resium";
+import { Container, Row, Col } from "react-bootstrap";
+
 import "./App.css";
-import Plane from "./components/plane/Plane";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
-const pointGraphics = { pixelSize: 10 };
-
-const dummyCredit = document.createElement("div");
+import SideBar from "./components/nav/SideBar.js";
+import Globe from "./components/globe/Globe.js";
+import "./components/nav/SideBar.css";
 
 function App() {
   return (
     <div className="App">
-      <Viewer
-        full
-        creditContainer={dummyCredit}
-        timeline={false}
-        animation={false}
-        fullscreenButton={false}
-        sceneModePicker={false}
-        baseLayerPicker={true}
-        projectionPicker={false}
-        navigationHelpButton={false}
-        homeButton={false}
-        geocoder={false}
-      >
-        <Entity position={position} point={pointGraphics} />
-        <Plane longitude={-0.124625} latitude={51.510357} elevation={100000} />
-      </Viewer>
+      {/* <Container fluid>
+        <Row>
+            <Col md={2} id="sidebar-wrapper">      
+              
+            </Col>
+            <Col  md={10} id="page-content-wrapper"> */}
+              <SideBar />
+              <Globe />
+            {/* </Col> 
+        </Row>
+      </Container> */}
     </div>
+
   );
 }
 
