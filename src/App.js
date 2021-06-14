@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import SideBar from "./components/nav/SideBar.js";
 import Globe from "./components/globe/Globe.js";
 import "./components/nav/SideBar.css";
+import OtbImage from "./components/otbimage/OtbImage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Col  md={10} id="page-content-wrapper"> */}
               <SideBar />
               <Globe />
+              <OtbImage />
             {/* </Col> 
         </Row>
       </Container> */}

@@ -7,9 +7,10 @@ const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
 const pointGraphics = { pixelSize: 10 };
 const dummyCredit = document.createElement("div");
 
+
 function Globe(props) {
   return (
-      <Viewer 
+      <Viewer full
         creditContainer={dummyCredit}
         timeline={false}
         animation={false}
