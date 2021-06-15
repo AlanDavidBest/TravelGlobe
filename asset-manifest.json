@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/TravelGlobe/static/css/main.baac976d.chunk.css",
+    "main.css": "/TravelGlobe/static/css/main.032e44d3.chunk.css",
     "main.js": "/TravelGlobe/static/js/main.76d2b22e.chunk.js",
     "main.js.map": "/TravelGlobe/static/js/main.76d2b22e.chunk.js.map",
     "runtime-main.js": "/TravelGlobe/static/js/runtime-main.b255ed21.js",
@@ -377,7 +377,7 @@
     "cesium/Workers/when-208fe5b0.js": "/TravelGlobe/cesium/Workers/when-208fe5b0.js",
     "index.html": "/TravelGlobe/index.html",
     "static/css/2.61b4cb56.chunk.css.map": "/TravelGlobe/static/css/2.61b4cb56.chunk.css.map",
-    "static/css/main.baac976d.chunk.css.map": "/TravelGlobe/static/css/main.baac976d.chunk.css.map",
+    "static/css/main.032e44d3.chunk.css.map": "/TravelGlobe/static/css/main.032e44d3.chunk.css.map",
     "static/js/2.98db7b14.chunk.js.LICENSE.txt": "/TravelGlobe/static/js/2.98db7b14.chunk.js.LICENSE.txt",
     "static/media/Cesium_Air.9a126575.glb": "/TravelGlobe/static/media/Cesium_Air.9a126575.glb",
     "static/media/marker.87dd02dd.png": "/TravelGlobe/static/media/marker.87dd02dd.png",
@@ -387,7 +387,7 @@
     "static/js/runtime-main.b255ed21.js",
     "static/css/2.61b4cb56.chunk.css",
     "static/js/2.98db7b14.chunk.js",
-    "static/css/main.baac976d.chunk.css",
+    "static/css/main.032e44d3.chunk.css",
     "static/js/main.76d2b22e.chunk.js"
   ]
 }
