@@ -23,7 +23,7 @@ class Global extends React.Component {
     super(props);
     this.ref = createRef();
     this.selected = [];
-    this.selected["GBR"] = true;
+    this.selected["GBR"] = false;
     this.randomColor = randomColor;
 
     this.flyToDestination = this.flyToDestination.bind(this);
