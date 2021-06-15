@@ -48,8 +48,11 @@ export default class Global extends React.Component {
     }
 
     this.ref = createRef();
+    this.infoRef = createRef();
 
+    this.isPopoverOpen = this.isPopoverOpen.bind(this);
     this.onEntityClick = this.onEntityClick.bind(this);
+    this.onViewerMove = this.onViewerMove.bind(this);
   }
 
   componentDidMount() {
@@ -63,6 +66,14 @@ export default class Global extends React.Component {
 
     this.setState({
       cardPosition: { x, y }
+    })
+  }
+
+  isPopoverOpen = () => this.state.cardPosition.x > 0 && this.state.cardPosition.y > 0;
+
+  onViewerMove = () => {
+    this.setState({
+      cardPosition: { x: 0, y: 0 }
     })
   }
 
@@ -82,6 +93,7 @@ export default class Global extends React.Component {
           navigationHelpButton={false}
           homeButton={false}
           geocoder={false}
+          onMouseDown={this.onViewerMove}
         >
           <Entity name="United Kingdom" description="United Kingdom Polygon">
             <PolygonGraphics hierarchy={positions} material={Color.GREEN} />
@@ -92,7 +104,10 @@ export default class Global extends React.Component {
 
           <Plane longitude={-0.124625} latitude={51.510357} elevation={100000} />
         </Viewer>
-        <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+        {
+          this.isPopoverOpen() &&
+            <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+        }
       </div>
     );
   }
