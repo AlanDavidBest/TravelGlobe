@@ -4,7 +4,7 @@ import "./OtbImage.css";
 import logo from "../../images/otb.png"
 
 function OtbImage() {
-  return <Image src={logo} id={"otbImage"} />;
+  return  <a href="https://www.onthebeach.co.uk"><Image src={logo} id={"otbImage"} /> </a>
 }
 
 export default OtbImage;
