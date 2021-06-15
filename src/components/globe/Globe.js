@@ -1,6 +1,6 @@
-import React, { createRef, useState } from "react";
-import { Cartesian3, Color } from "cesium";
-import { useCesium, Viewer, Entity, PolygonGraphics } from "resium";
+import React, { createRef } from "react";
+import { Cartesian3, Color, buildModuleUrl} from "cesium";
+import { Viewer, Entity, PolygonGraphics } from "resium";
 import Plane from "../plane/Plane";
 import CesiumContext from "../../CesiumContext";
 import countries from "../../data/countries.geo.json";
@@ -31,10 +31,31 @@ export default class Global extends React.Component {
   componentDidMount() {
     if (this.ref.current && this.ref.current.cesiumElement) {
       this.context.setInstance(this.ref.current.cesiumElement);
+
+      var frame = this.ref.current.cesiumElement.infoBox.frame;
+
+      frame.addEventListener(
+        "load",
+        function () {
+          var cssLink = frame.contentDocument.createElement("link");
+          cssLink.href = buildModuleUrl("../infoBox.css");
+          cssLink.rel = "stylesheet";
+          cssLink.type = "text/css";
+          frame.contentDocument.head.appendChild(cssLink);
+
+          var x = document.createElement('div')
+          x.classList = "cesium-infoBox-description"
+          x.innerText = "Other fancy content"
+          
+          frame.contentDocument.body.appendChild(x);
+
+        },
+        false
+      );
     }
   }
 
-// Estonia	Tallinn	59.22N	24.48E
+// Estonia  Tallinn 59.22N  24.48E
 
   render() {
     return (
