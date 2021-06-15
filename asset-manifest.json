@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/TravelGlobe/static/css/main.032e44d3.chunk.css",
-    "main.js": "/TravelGlobe/static/js/main.76d2b22e.chunk.js",
-    "main.js.map": "/TravelGlobe/static/js/main.76d2b22e.chunk.js.map",
+    "main.js": "/TravelGlobe/static/js/main.8f830a2b.chunk.js",
+    "main.js.map": "/TravelGlobe/static/js/main.8f830a2b.chunk.js.map",
     "runtime-main.js": "/TravelGlobe/static/js/runtime-main.b255ed21.js",
     "runtime-main.js.map": "/TravelGlobe/static/js/runtime-main.b255ed21.js.map",
     "static/css/2.61b4cb56.chunk.css": "/TravelGlobe/static/css/2.61b4cb56.chunk.css",
@@ -388,6 +388,6 @@
     "static/css/2.61b4cb56.chunk.css",
     "static/js/2.98db7b14.chunk.js",
     "static/css/main.032e44d3.chunk.css",
-    "static/js/main.76d2b22e.chunk.js"
+    "static/js/main.8f830a2b.chunk.js"
   ]
 }
