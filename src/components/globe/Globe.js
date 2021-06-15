@@ -1,18 +1,49 @@
 import React, { createRef } from "react";
-import { Cartesian3, Color } from "cesium";
-import { Viewer, Entity, PolygonGraphics } from "resium";
+import {
+  Cartesian3,
+  LabelStyle,
+  Cartesian2,
+  VerticalOrigin,
+} from "cesium";
+import { Viewer, Entity } from "resium";
 import Plane from "../plane/Plane";
 import CesiumContext from "../../CesiumContext";
-import countries from "../../data/countries.geo.json";
+import SideBar from "../nav/SideBar";
+import PolygonCountries from "./polygonCountries/PolygonCountries";
+import Marker from "../../images/marker.png";
 
-const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
-const pointGraphics = { pixelSize: 10 };
+function useClickedItem(e) {
+  console.log("E " + JSON.stringify(e));
+}
 const dummyCredit = document.createElement("div");
 
-export default class Global extends React.Component {
+
+class Global extends React.Component {
   constructor(props) {
     super(props);
     this.ref = createRef();
+    this.selected = [];
+    this.selected["GBR"] = false;
+    this.state = {
+      matchedCities: [],
+    };
+
+    this.handleMatchedCities = this.handleMatchedCities.bind(this);
+    this.flyToDestination = this.flyToDestination.bind(this);
+  }
+
+  handleMatchedCities(matches) {
+    this.setState({ matchedCities: matches });
+  }
+
+  flyToDestination(destination) {
+    this.ref.current.cesiumElement.camera.flyTo({
+      destination: Cartesian3.fromDegrees(
+        destination.longitude,
+        destination.latitude,
+        5000000
+      ),
+    });
   }
 
   componentDidMount() {
@@ -20,57 +51,71 @@ export default class Global extends React.Component {
       this.context.setInstance(this.ref.current.cesiumElement);
     }
   }
+
   render() {
     return (
-      <Viewer
-        ref={this.ref}
-        full
-        creditContainer={dummyCredit}
-        timeline={false}
-        animation={false}
-        fullscreenButton={false}
-        sceneModePicker={false}
-        baseLayerPicker={true}
-        projectionPicker={false}
-        navigationHelpButton={false}
-        homeButton={false}
-        geocoder={false}
-      >
-        
-            <Entity> {
-                countries.features.filter(country => country.geometry.type === 'Polygon').map((country, i) => {
-                    var countryCoordinates = [].concat.apply([], country.geometry.coordinates[0]);
-                    return (
-                        <Entity name={country.id} description={country.properties.name}>
-                            <PolygonGraphics hierarchy={Cartesian3.fromDegreesArray(countryCoordinates)} fill={true} material={new Color(1.0, 1.0, 1.0, 0)} outline={true} outlineColor={Color.RED} outlineWidth={10} />;
-                        </Entity>
-                    )
-                })
-            }
-            </Entity>
-            <Entity> {
-                countries.features.filter(country => country.geometry.type === 'MultiPolygon').map((country, i) => {
-                    return (
-                            country.geometry.coordinates.map((polygon, j) => {
-                                var  polyCoords = [].concat.apply([], polygon[0])
-                                return (
-                                    <Entity name={country.id} description={country.properties.name}>
-                                        <PolygonGraphics hierarchy={Cartesian3.fromDegreesArray(polyCoords)} fill={true} material={new Color(1.0, 1.0, 1.0, 0)} outline={true} outlineColor={Color.RED} outlineWidth={10}/>;
-                                    </Entity>
-                                )
-                            }
-                            )
-                    )
-                        }
-                )
-            }
-            </Entity>
-       
-        <Entity position={position} point={pointGraphics} />
+      <>
+        <SideBar
+          {...this.state}
+          flyTo={this.flyToDestination}
+          handleMatchedCities={this.handleMatchedCities}
+        />
+        <Viewer
+          ref={this.ref}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+          creditContainer={dummyCredit}
+          timeline={false}
+          animation={false}
+          fullscreenButton={false}
+          sceneModePicker={false}
+          baseLayerPicker={true}
+          projectionPicker={false}
+          navigationHelpButton={false}
+          homeButton={false}
+          geocoder={false}
+          infoBox={true}
+          selectionIndicator={false}
+          onClick={useClickedItem}
+        >
+          <PolygonCountries />
 
-        <Plane longitude={-0.124625} latitude={51.510357} elevation={100000} />
-      </Viewer>
+          {this.state.matchedCities.map((entry, i) => {
+            return (
+              <Entity
+                name={entry.city}
+                billboard={{
+                  image: Marker,
+                  width: 24,
+                  height: 36,
+                }}
+                label={{
+                  text: `${entry.city}, ${entry.iso3}`,
+                  font: "36pt",
+                  style: LabelStyle.FILL_AND_OUTLINE,
+                  outlineWidth: 3,
+                  verticalOrigin: VerticalOrigin.BOTTOM,
+                  pixelOffset: new Cartesian2(0, -20),
+                }}
+                position={Cartesian3.fromDegrees(entry.lng, entry.lat, 100)}
+              ></Entity>
+            );
+          })}
+
+          <Plane
+            longitude={-0.124625}
+            latitude={51.510357}
+            elevation={100000}
+          />
+        </Viewer>
+      </>
     );
   }
 }
 Global.contextType = CesiumContext;
+export default Global;
