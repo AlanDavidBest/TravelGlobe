@@ -4,10 +4,12 @@ import "./OtbImage.css";
 
 function OtbImage(props) {
   return (
+    <div className="otbimage">
       <Image 
         src="otb.png"
         id="otbImage"
       />
+    </div>
   );
 }
 

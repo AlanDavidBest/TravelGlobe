@@ -1,0 +1,18 @@
+.infoContainer {
+  border: 1px solid red;
+  width: 40rem;
+  height: 24rem;
+  position: absolute;
+  z-index: 9999999999999;  
+  padding: .5em;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.carousel {
+    border-radius: 15px;
+}
+
+.carousel img {
+    border-radius: 15px;
+}

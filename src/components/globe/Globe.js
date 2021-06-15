@@ -1,10 +1,10 @@
 import React, { createRef } from "react";
-import { Cartesian2, Cartesian3, Color } from "cesium";
+import { Cartesian3, Color } from "cesium";
 import { Viewer, Entity, PolygonGraphics } from "resium";
 import Plane from "../plane/Plane";
 import Info from "../info/Info"
 import CesiumContext from "../../CesiumContext";
-import countries from "../../data/countries.geo.json";
+// import countries from "../../data/countries.geo.json";
 
 const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
 const pointGraphics = { pixelSize: 10 };
@@ -29,12 +29,12 @@ const positions = Cartesian3.fromDegreesArray([
   57.818848, -5.009999, 58.630013, -4.211495, 58.550845, -3.005005, 58.635,
 ]);
 
-const screenClickToCartesian3 = (current, x, y) => {
-  const scene = current?.cesiumElement?.scene;
-  if (!scene) return;
-  const ellipsoid = scene.globe.ellipsoid;
-  return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
-}
+// const screenClickToCartesian3 = (current, x, y) => {
+//   const scene = current?.cesiumElement?.scene;
+//   if (!scene) return;
+//   const ellipsoid = scene.globe.ellipsoid;
+//   return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
+// }
 
 export default class Global extends React.Component {
   constructor(props) {
@@ -59,7 +59,7 @@ export default class Global extends React.Component {
   }
 
   onEntityClick = ({ position: { x, y }}) => {
-    const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
+    // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
 
     this.setState({
       cardPosition: { x, y }
