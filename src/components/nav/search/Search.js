@@ -7,9 +7,9 @@ import "./Search.css";
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       value: "",
-     };
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.search = this.search.bind(this);
@@ -21,16 +21,18 @@ class Search extends React.Component {
 
   search() {
     if (this.state.value.length > 2) {
-      var matches = []
+      var matches = [];
       cities
-        .filter((entry) =>
-        entry.city.toLowerCase().includes(this.state.value.toLowerCase()) || 
-        entry.country.toLowerCase().includes(this.state.value.toLowerCase())
+        .filter(
+          (entry) =>
+            entry.city.toLowerCase().includes(this.state.value.toLowerCase()) ||
+            entry.country.toLowerCase().includes(this.state.value.toLowerCase())
         )
         .map((country, i) => {
           matches.push(country);
+          return matches;
         });
-        this.props.onSearch(matches)
+      this.props.onSearch(matches);
     }
   }
 
