@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
+import { Form, FormControl } from "react-bootstrap";
 //import cities from "../../../data/worldcities.json";
 import cities from "../../../data/capitalcities.json";
 import "./Search.css";
@@ -20,8 +20,8 @@ class Search extends React.Component {
   }
 
   search() {
+    var matches = [];
     if (this.state.value.length > 2) {
-      var matches = [];
       cities
         .filter(
           (entry) =>
@@ -29,11 +29,10 @@ class Search extends React.Component {
             entry.country.toLowerCase().includes(this.state.value.toLowerCase())
         )
         .map((country, i) => {
-          matches.push(country);
-          return matches;
+          return matches.push(country);
         });
-      this.props.onSearch(matches);
     }
+    this.props.onSearch(matches);
   }
 
   render() {
@@ -44,10 +43,10 @@ class Search extends React.Component {
           onChange={this.handleChange}
           onKeyUp={this.search}
           type="text"
-          placeholder="Search"
+          placeholder="Search..."
           className="mr-sm-2"
         />
-        <Button variant="outline-success">Search</Button>
+        {/* <Button variant="outline-success">Search</Button> */}
       </Form>
     );
   }

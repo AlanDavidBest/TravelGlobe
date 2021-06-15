@@ -1,22 +1,22 @@
 import React, { createRef } from "react";
-import { Cartesian3, Color, buildModuleUrl } from "cesium";
-import { Viewer, Entity, PolygonGraphics } from "resium";
+import {
+  Cartesian3,
+  LabelStyle,
+  Cartesian2,
+  VerticalOrigin,
+} from "cesium";
+import { Viewer, Entity } from "resium";
 import Plane from "../plane/Plane";
 import CesiumContext from "../../CesiumContext";
-import countries from "../../data/countries.geo.json";
-import SideBar from "../nav/SideBar.js";
-
-const position = Cartesian3.fromDegrees(-74.0707383, 40.7117244, 100);
-const pointGraphics = { pixelSize: 10 };
-const dummyCredit = document.createElement("div");
+import SideBar from "../nav/SideBar";
+import PolygonCountries from "./polygonCountries/PolygonCountries";
+import Marker from "../../images/marker.png";
 
 function useClickedItem(e) {
   console.log("E " + JSON.stringify(e));
 }
+const dummyCredit = document.createElement("div");
 
-function randomColor() {
-  return new Color(Math.random(), Math.random(), Math.random(), 0.0);
-}
 
 class Global extends React.Component {
   constructor(props) {
@@ -24,9 +24,16 @@ class Global extends React.Component {
     this.ref = createRef();
     this.selected = [];
     this.selected["GBR"] = false;
-    this.randomColor = randomColor;
+    this.state = {
+      matchedCities: [],
+    };
 
+    this.handleMatchedCities = this.handleMatchedCities.bind(this);
     this.flyToDestination = this.flyToDestination.bind(this);
+  }
+
+  handleMatchedCities(matches) {
+    this.setState({ matchedCities: matches });
   }
 
   flyToDestination(destination) {
@@ -42,33 +49,17 @@ class Global extends React.Component {
   componentDidMount() {
     if (this.ref.current && this.ref.current.cesiumElement) {
       this.context.setInstance(this.ref.current.cesiumElement);
-
-      var frame = this.ref.current.cesiumElement.infoBox.frame;
-
-      frame.addEventListener(
-        "load",
-        function () {
-          var cssLink = frame.contentDocument.createElement("link");
-          cssLink.href = buildModuleUrl("../infoBox.css");
-          cssLink.rel = "stylesheet";
-          cssLink.type = "text/css";
-          frame.contentDocument.head.appendChild(cssLink);
-
-          var x = document.createElement("div");
-          x.classList = "cesium-infoBox-description";
-          x.innerText = "Other fancy content";
-
-          frame.contentDocument.body.appendChild(x);
-        },
-        false
-      );
     }
   }
 
   render() {
     return (
       <>
-        <SideBar flyTo={this.flyToDestination} />
+        <SideBar
+          {...this.state}
+          flyTo={this.flyToDestination}
+          handleMatchedCities={this.handleMatchedCities}
+        />
         <Viewer
           ref={this.ref}
           style={{
@@ -92,61 +83,29 @@ class Global extends React.Component {
           selectionIndicator={false}
           onClick={useClickedItem}
         >
-          <Entity>
-            {countries.features
-              .filter((country) => country.geometry.type === "Polygon")
-              .map((country, i) => {
-                var countryCoordinates = [].concat.apply(
-                  [],
-                  country.geometry.coordinates[0]
-                );
-                return (
-                  <Entity
-                    key={"E" + country.id + i.toString()}
-                    name={country.id}
-                    description={country.properties.name}
-                  >
-                    <PolygonGraphics
-                      key={country.id + i.toString()}
-                      hierarchy={Cartesian3.fromDegreesArray(
-                        countryCoordinates
-                      )}
-                      fill={true}
-                      material={this.randomColor()}
-                    />
-                  </Entity>
-                );
-              })}
-          </Entity>
-          <Entity>
-            {countries.features
-              .filter((country) => country.geometry.type === "MultiPolygon")
-              .map((country, i) => {
-                return country.geometry.coordinates.map((polygon, j) => {
-                  var polyCoords = [].concat.apply([], polygon[0]);
-                  return (
-                    <Entity
-                      key={"E" + country.id + i.toString() + "-" + j.toString()}
-                      name={country.id}
-                      description={country.properties.name}
-                    >
-                      <PolygonGraphics
-                        key={country.id + i.toString() + "-" + j.toString()}
-                        hierarchy={Cartesian3.fromDegreesArray(polyCoords)}
-                        fill={true}
-                        material={
-                          this.selected[country.id]
-                            ? Color.RED
-                            : this.randomColor()
-                        }
-                      />
-                    </Entity>
-                  );
-                });
-              })}
-          </Entity>
+          <PolygonCountries />
 
-          <Entity position={position} point={pointGraphics} />
+          {this.state.matchedCities.map((entry, i) => {
+            return (
+              <Entity
+                name={entry.city}
+                billboard={{
+                  image: Marker,
+                  width: 24,
+                  height: 36,
+                }}
+                label={{
+                  text: `${entry.city}, ${entry.iso3}`,
+                  font: "36pt",
+                  style: LabelStyle.FILL_AND_OUTLINE,
+                  outlineWidth: 3,
+                  verticalOrigin: VerticalOrigin.BOTTOM,
+                  pixelOffset: new Cartesian2(0, -20),
+                }}
+                position={Cartesian3.fromDegrees(entry.lng, entry.lat, 100)}
+              ></Entity>
+            );
+          })}
 
           <Plane
             longitude={-0.124625}
