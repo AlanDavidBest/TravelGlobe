@@ -7,7 +7,7 @@ export const Info = ({ x, y }) => {
   {
     title: "Sunny Manchester",
     image: "https://www.thetreecenter.com/c/uploads/palm-trees-beach-scaled-2048x1146.jpg",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie. Sed mollis dui et arcu blandit tincidunt.",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie. Sed mollis dui et arcu blandit tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie.",
     rating: 2,
     weather: [
       { name: "Spring", celcius: 11 },

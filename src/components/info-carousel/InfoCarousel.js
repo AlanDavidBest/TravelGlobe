@@ -30,6 +30,10 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
                 <h4>{description}</h4>
             </Carousel.Caption>
 
+            <div
+                className="opacity-container"
+            />
+
             <img
                 className="d-block"
                 src={image}
@@ -39,6 +43,10 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
 
         <Carousel.Item>
             <WeatherWidget title={title} weather={weather} />
+
+            <div
+                className="opacity-container"
+            />
 
             <img
                 className="d-block"
@@ -50,6 +58,10 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
         <Carousel.Item>
             <CurrencyWidget title={title} currency={currency} />
 
+            <div
+                className="opacity-container"
+            />
+            
             <img
                 className="d-block"
                 src={image}
