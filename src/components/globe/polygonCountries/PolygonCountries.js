@@ -11,7 +11,7 @@ class PolygonCountries extends React.Component {
 
   randomColor() {
     //return new Color(Math.random(), Math.random(), Math.random(), 0.5);
-    return new Color(1.0, 1.0, 0.0, 0);
+    return new Color(1.0, 1.0, 0.0, 0.0);
   }
   render() {
     return (

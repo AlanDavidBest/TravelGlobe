@@ -3,7 +3,7 @@ import {
   Cartesian3,
   LabelStyle,
   Cartesian2,
-  VerticalOrigin,
+  VerticalOrigin
 } from "cesium";
 import { Viewer, Entity } from "resium";
 import Plane from "../plane/Plane";
@@ -11,12 +11,13 @@ import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import Marker from "../../images/marker.png";
+import Color from "cesium/Source/Core/Color";
+
 
 function useClickedItem(e) {
   console.log("E " + JSON.stringify(e));
 }
 const dummyCredit = document.createElement("div");
-
 
 class Global extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class Global extends React.Component {
       this.context.setInstance(this.ref.current.cesiumElement);
     }
   }
-
+  
   render() {
     return (
       <>
@@ -74,7 +75,7 @@ class Global extends React.Component {
           animation={false}
           fullscreenButton={false}
           sceneModePicker={false}
-          baseLayerPicker={true}
+          baseLayerPicker={false}
           projectionPicker={false}
           navigationHelpButton={false}
           homeButton={false}
@@ -102,16 +103,17 @@ class Global extends React.Component {
                   verticalOrigin: VerticalOrigin.BOTTOM,
                   pixelOffset: new Cartesian2(0, -20),
                 }}
-                position={Cartesian3.fromDegrees(entry.lng, entry.lat, 100)}
-              ></Entity>
+                position={Cartesian3.fromDegrees(entry.lng, entry.lat, 0)}
+              >
+              </Entity>
             );
           })}
 
-          <Plane
+          {/* <Plane
             longitude={-0.124625}
             latitude={51.510357}
             elevation={100000}
-          />
+          /> */}
         </Viewer>
       </>
     );

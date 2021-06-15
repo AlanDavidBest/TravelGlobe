@@ -13,7 +13,9 @@ class DestinationCard extends React.Component {
           this.props.handleCardClick(this.props.item);
         }}
       >
-        <Card.Img variant="top" src="https://picsum.photos/200/100" />
+        {/* Curtesy of https://www.countryflags.io/ */}
+        <Card.Img variant="top" src={"https://www.countryflags.io/" + this.props.item.iso2 + "/flat/64.png"} bsPrefix="card-icon"/>
+        <Card.Img variant="top" src={"https://picsum.photos/200/100?" + Math.random()} />
         <Card.Body>
           <Card.Title>{this.props.item.city}</Card.Title>
           <Card.Text>{this.props.item.country}</Card.Text>

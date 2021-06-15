@@ -46,7 +46,7 @@ class SideBar extends React.Component {
 
           {this.props.matchedCities.map((item) => {
             return (
-              <Nav.Item>
+              <Nav.Item key={item.id}>
                 <DestinationCard
                   key={item.id}
                   item={item}
