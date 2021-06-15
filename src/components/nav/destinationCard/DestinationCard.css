@@ -91,6 +91,12 @@
     font-size: 18px;
   }
 }
+.card-title.h5 {
+  user-select: none;
+}
 
+.card-text {
+  user-select: none;
+}
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */
 
