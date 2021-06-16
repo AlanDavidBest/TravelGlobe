@@ -3,16 +3,16 @@ import {
   Cartesian3,
   LabelStyle,
   Cartesian2,
-  VerticalOrigin
+  VerticalOrigin,
+  Color,
 } from "cesium";
 import { Viewer, Entity } from "resium";
 // import Plane from "../plane/Plane";
-import Info from "../info/Info"
+import Info from "../info/Info";
 import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import Marker from "../../images/marker.png";
-// import countries from "../../data/countries.geo.json";
 
 const dummyCredit = document.createElement("div");
 
@@ -34,10 +34,13 @@ class Global extends React.Component {
       matchedCities: [],
       cardPosition: {
         x: 0,
-        y: 0
-      }
+        y: 0,
+      },
+      userLat: 0,
+      userLng: 0,
     };
 
+    this.handleUserLocation = this.handleUserLocation.bind(this);
     this.handleMatchedCities = this.handleMatchedCities.bind(this);
     this.flyToDestination = this.flyToDestination.bind(this);
     this.isPopoverOpen = this.isPopoverOpen.bind(this);
@@ -47,6 +50,13 @@ class Global extends React.Component {
 
   handleMatchedCities(matches) {
     this.setState({ matchedCities: matches });
+  }
+
+  handleUserLocation(latitude, longitude) {
+    this.setState({
+      userLat: latitude,
+      userLng: longitude,
+    });
   }
 
   flyToDestination(destination) {
@@ -63,23 +73,34 @@ class Global extends React.Component {
     if (this.ref.current && this.ref.current.cesiumElement) {
       this.context.setInstance(this.ref.current.cesiumElement);
     }
+
+    let latitude = 0;
+    let longitude = 0;
+    let self = this;
+    navigator.geolocation.getCurrentPosition(function (position) {
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+
+      self.handleUserLocation(latitude, longitude);
+    });
   }
 
-  onEntityClick = ({ position: { x, y }}) => {
+  onEntityClick = ({ position: { x, y } }) => {
     // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
 
     this.setState({
-      cardPosition: { x, y }
-    })
-  }
+      cardPosition: { x, y },
+    });
+  };
 
-  isPopoverOpen = () => this.state.cardPosition.x > 0 && this.state.cardPosition.y > 0;
+  isPopoverOpen = () =>
+    this.state.cardPosition.x > 0 && this.state.cardPosition.y > 0;
 
   onViewerMove = () => {
     this.setState({
-      cardPosition: { x: 0, y: 0 }
-    })
-  }
+      cardPosition: { x: 0, y: 0 },
+    });
+  };
 
   render() {
     return (
@@ -115,7 +136,7 @@ class Global extends React.Component {
         >
           <PolygonCountries />
 
-          {this.state.matchedCities.map(entry => {
+          {this.state.matchedCities.map((entry) => {
             return (
               <Entity
                 onClick={this.onEntityClick}
@@ -134,20 +155,41 @@ class Global extends React.Component {
                   pixelOffset: new Cartesian2(0, -20),
                 }}
                 position={Cartesian3.fromDegrees(entry.lng, entry.lat, 0)}
-              >
-              </Entity>
-            )
+              ></Entity>
+            );
           })}
+          <Entity
+            name={"Me"}
+            point={{
+              pixelSize: 10,
+              color: Color.YELLOW,
+              outlineColor: Color.RED,
+              outlineWidth: 3,
+            }}
+            label={{
+              text: "Me",
+              font: "36pt",
+              style: LabelStyle.FILL_AND_OUTLINE,
+              outlineWidth: 3,
+              verticalOrigin: VerticalOrigin.BOTTOM,
+              pixelOffset: new Cartesian2(0, -20),
+            }}
+            position={Cartesian3.fromDegrees(
+              this.state.userLng,
+              this.state.userLat,
+              0
+            )}
+          ></Entity>
+
           {/* <Plane
             longitude={-0.124625}
             latitude={51.510357}
             elevation={100000}
           /> */}
         </Viewer>
-        {
-          this.isPopoverOpen() &&
-            <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
-        }
+        {this.isPopoverOpen() && (
+          <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+        )}
       </>
     );
   }
