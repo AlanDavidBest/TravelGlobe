@@ -16,12 +16,12 @@ import Marker from "../../images/marker.png";
 
 const dummyCredit = document.createElement("div");
 
-// const screenClickToCartesian3 = (current, x, y) => {
-//   const scene = current?.cesiumElement?.scene;
-//   if (!scene) return;
-//   const ellipsoid = scene.globe.ellipsoid;
-//   return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
-// }
+const screenClickToCartesian3 = (current, x, y) => {
+  const scene = current?.cesiumElement?.scene;
+  if (!scene) return;
+  const ellipsoid = scene.globe.ellipsoid;
+  return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
+}
 
 class Global extends React.Component {
   constructor(props) {
@@ -71,8 +71,7 @@ class Global extends React.Component {
     });
 
     this.setState({
-      locationId: destination.locationId,
-      locationName: destination.locationName,
+
       cardPosition: { x: 0, y: 0 }
     });
   }
@@ -93,11 +92,13 @@ class Global extends React.Component {
     });
   }
 
-  onEntityClick = ({ position: { x, y } }) => {
+  onEntityClick = ({ position: { x, y } }, { id, city }) => {
     // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
-
+    //
     this.setState({
       cardPosition: { x, y },
+      locationId: id,
+      locationName: city,
     });
   };
 
@@ -147,7 +148,7 @@ class Global extends React.Component {
           {this.state.matchedCities.map((entry) => {
             return (
               <Entity
-                onClick={this.onEntityClick}
+                onClick={e => this.onEntityClick(e, entry)}
                 name={entry.city}
                 billboard={{
                   image: Marker,

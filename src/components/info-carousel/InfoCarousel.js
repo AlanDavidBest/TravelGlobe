@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Button } from "react-bootstrap";
 import "./InfoCarousel.css";
 
 export const InfoCarousel = ({ title, image, description, rating, weather, currency, languages }) => (
@@ -7,6 +7,9 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
         <Carousel.Item>
             <Carousel.Caption>
                 <h1>{title}</h1>
+                <a href="https://onthebeach.co.uk" target="_blank">
+                  <Button>Search this Destination</Button>
+                </a>
             </Carousel.Caption>
 
             <img
