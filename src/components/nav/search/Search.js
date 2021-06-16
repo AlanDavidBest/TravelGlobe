@@ -46,7 +46,7 @@ class Search extends React.Component {
               longitude: searchResult.lng
             }
           }
-          matchedCities.push(entry);
+          return matchedCities.push(entry);
         });
       countries.features
         .filter((country) =>
@@ -73,7 +73,7 @@ class Search extends React.Component {
               longitude: cities.filter(x => x.iso3 === searchResult.id)[0].lng,
             }
           }
-          matchedCountries.push(entry);
+          return matchedCountries.push(entry);
         });
       //beaches search
     }

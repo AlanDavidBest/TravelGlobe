@@ -13,6 +13,7 @@ import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import Marker from "../../images/marker.png";
+import Arrow from "../../images/YouAreHere.png";
 
 const dummyCredit = document.createElement("div");
 
@@ -184,19 +185,10 @@ class Global extends React.Component {
           })}
           <Entity
             name={"Me"}
-            point={{
-              pixelSize: 10,
-              color: Color.YELLOW,
-              outlineColor: Color.RED,
-              outlineWidth: 3,
-            }}
-            label={{
-              text: "Me",
-              font: "36pt",
-              style: LabelStyle.FILL_AND_OUTLINE,
-              outlineWidth: 3,
-              verticalOrigin: VerticalOrigin.BOTTOM,
-              pixelOffset: new Cartesian2(0, -20),
+            billboard={{
+              image: Arrow,
+              width: 44,
+              height: 150,
             }}
             position={Cartesian3.fromDegrees(
               this.state.userLng,
