@@ -38,6 +38,7 @@ class Global extends React.Component {
       },
       userLat: 0,
       userLng: 0,
+
     };
 
     this.handleUserLocation = this.handleUserLocation.bind(this);
@@ -66,6 +67,7 @@ class Global extends React.Component {
         destination.latitude,
         5000000
       ),
+      complete: this.defaultPopUp
     });
   }
 
@@ -85,9 +87,12 @@ class Global extends React.Component {
     });
   }
 
+  defaultPopUp =() => 
+    this.onEntityClick({ position: { x:958.60546875, y:377.59765625 }});
+  
   onEntityClick = ({ position: { x, y } }) => {
     // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
-
+    // 958.60546875 Y:377.59765625
     this.setState({
       cardPosition: { x, y },
     });
@@ -109,6 +114,7 @@ class Global extends React.Component {
           {...this.state}
           flyTo={this.flyToDestination}
           handleMatchedCities={this.handleMatchedCities}
+          onEntityClick={this.onEntityClick}
         />
         <Viewer
           ref={this.ref}

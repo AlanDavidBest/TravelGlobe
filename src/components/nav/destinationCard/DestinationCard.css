@@ -50,7 +50,7 @@
   top: -4px;
   right: 0;
   width: 32px;
-  z-index: 9999;
+  z-index: 8888;
 }
 
 .card-img-top {
@@ -97,6 +97,17 @@
 
 .card-text {
   user-select: none;
+}
+
+.card-header {
+  background-color: hsl(60, 75%, 50%);
+  transition: background-color 0.25s ease-in-out;
+  z-index: 99999;
+}
+
+.card-header:hover {
+  background-color: hsl(60, 100%, 50%);
+  z-index: 99999;
 }
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */
 

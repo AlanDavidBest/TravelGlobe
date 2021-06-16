@@ -6,14 +6,13 @@ import Search from "./search/Search";
 import "./SideBar.css";
 
 class SideBar extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleCardClick = this.handleCardClick.bind(this);
+  handleCardClick = (item) => {
+    //this.props.onEntityClick({ position: { x:958.60546875, y:377.59765625 }} );
   }
-
-  handleCardClick(item) {
-    this.props.flyTo({ latitude: item.lat, longitude: item.lng });
+  
+  handleMouseEnter = (item) => {
+    this.props.onEntityClick({ position: { x:0, y:0 }} ); // Close any open popup
+    this.props.flyTo({ latitude: item.lat, longitude: item.lng })
   }
 
   openNav() {
@@ -51,6 +50,7 @@ class SideBar extends React.Component {
                   key={item.id}
                   item={item}
                   handleCardClick={this.handleCardClick}
+                  handleMouseEnter={this.handleMouseEnter}
                 />
               </Nav.Item>
             );
