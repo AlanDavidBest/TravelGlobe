@@ -51,6 +51,8 @@
 
 .nav-item {
   padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */

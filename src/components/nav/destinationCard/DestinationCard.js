@@ -6,9 +6,10 @@ class DestinationCard extends React.Component {
   render() {
     return (
       <Card
+        className="text-center grow"
         key={this.props.item.id}
-        bg={this.props.item.type === "City" ? "info" : "dark"}
-        text="black"
+        bg={this.props.item.type === "City" ? "primary" : "success"}
+        text={this.props.item.type === "Beach" ? "black" : "white"}
         onClick={() => {
           this.props.handleCardClick(this.props.item);
         }}
@@ -16,15 +17,25 @@ class DestinationCard extends React.Component {
           this.props.handleMouseEnter(this.props.item);
         }}
       >
-        {/* Curtesy of https://www.countryflags.io/ */}
-        <Card.Img variant="top" src={"https://www.countryflags.io/" + this.props.item.iso2 + "/flat/64.png"} bsPrefix="card-icon"/>
-        <Card.Img variant="top" src={this.props.item.image} />
+        <Card.Header>
+        {this.props.item.type} {/* Curtesy of https://www.countryflags.io/ */}
+          <Card.Img
+            variant="top"
+            src={
+              "https://www.countryflags.io/" +
+              this.props.item.iso2 +
+              "/flat/32.png"
+            }
+            bsPrefix="card-icon"
+          />
+        </Card.Header>
 
-         <Card.Header>{this.props.item.type}</Card.Header> 
+        <Card.Img src={this.props.item.image} alt="Card image" />
+        <Card.ImgOverlay>
         <Card.Body>
           <Card.Title>{this.props.item.name}</Card.Title>
-          <Card.Text>{this.props.item.description}</Card.Text>
         </Card.Body>
+        </Card.ImgOverlay>
       </Card>
     );
   }
