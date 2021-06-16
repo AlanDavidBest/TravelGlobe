@@ -20,15 +20,15 @@ class Search extends React.Component {
   }
 
   search() {
-    var matches = [];
-    if (this.state.value.length > 2) {
+    const matches = [];
+    if (this.state.value.length > -1) {
       cities
         .filter(
           (entry) =>
             entry.city.toLowerCase().includes(this.state.value.toLowerCase()) ||
             entry.country.toLowerCase().includes(this.state.value.toLowerCase())
         )
-        .map((country, i) => {
+        .map(country => {
           return matches.push(country);
         });
     }

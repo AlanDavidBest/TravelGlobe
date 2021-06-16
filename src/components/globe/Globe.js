@@ -6,31 +6,43 @@ import {
   VerticalOrigin
 } from "cesium";
 import { Viewer, Entity } from "resium";
-import Plane from "../plane/Plane";
+// import Plane from "../plane/Plane";
+import Info from "../info/Info"
 import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import Marker from "../../images/marker.png";
-import Color from "cesium/Source/Core/Color";
+// import countries from "../../data/countries.geo.json";
 
-
-function useClickedItem(e) {
-  console.log("E " + JSON.stringify(e));
-}
 const dummyCredit = document.createElement("div");
+
+// const screenClickToCartesian3 = (current, x, y) => {
+//   const scene = current?.cesiumElement?.scene;
+//   if (!scene) return;
+//   const ellipsoid = scene.globe.ellipsoid;
+//   return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
+// }
 
 class Global extends React.Component {
   constructor(props) {
     super(props);
     this.ref = createRef();
+    this.infoRef = createRef();
     this.selected = [];
     this.selected["GBR"] = false;
     this.state = {
       matchedCities: [],
+      cardPosition: {
+        x: 0,
+        y: 0
+      }
     };
 
     this.handleMatchedCities = this.handleMatchedCities.bind(this);
     this.flyToDestination = this.flyToDestination.bind(this);
+    this.isPopoverOpen = this.isPopoverOpen.bind(this);
+    this.onEntityClick = this.onEntityClick.bind(this);
+    this.onViewerMove = this.onViewerMove.bind(this);
   }
 
   handleMatchedCities(matches) {
@@ -52,7 +64,23 @@ class Global extends React.Component {
       this.context.setInstance(this.ref.current.cesiumElement);
     }
   }
-  
+
+  onEntityClick = ({ position: { x, y }}) => {
+    // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
+
+    this.setState({
+      cardPosition: { x, y }
+    })
+  }
+
+  isPopoverOpen = () => this.state.cardPosition.x > 0 && this.state.cardPosition.y > 0;
+
+  onViewerMove = () => {
+    this.setState({
+      cardPosition: { x: 0, y: 0 }
+    })
+  }
+
   render() {
     return (
       <>
@@ -70,25 +98,27 @@ class Global extends React.Component {
             right: 0,
             bottom: 0,
           }}
+          full
           creditContainer={dummyCredit}
           timeline={false}
           animation={false}
           fullscreenButton={false}
           sceneModePicker={false}
-          baseLayerPicker={false}
+          baseLayerPicker={true}
           projectionPicker={false}
           navigationHelpButton={false}
           homeButton={false}
           geocoder={false}
-          infoBox={true}
+          infoBox={false}
           selectionIndicator={false}
-          onClick={useClickedItem}
+          onMouseDown={this.onViewerMove}
         >
           <PolygonCountries />
 
-          {this.state.matchedCities.map((entry, i) => {
+          {this.state.matchedCities.map(entry => {
             return (
               <Entity
+                onClick={this.onEntityClick}
                 name={entry.city}
                 billboard={{
                   image: Marker,
@@ -106,15 +136,18 @@ class Global extends React.Component {
                 position={Cartesian3.fromDegrees(entry.lng, entry.lat, 0)}
               >
               </Entity>
-            );
+            )
           })}
-
           {/* <Plane
             longitude={-0.124625}
             latitude={51.510357}
             elevation={100000}
           /> */}
         </Viewer>
+        {
+          this.isPopoverOpen() &&
+            <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+        }
       </>
     );
   }
