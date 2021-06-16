@@ -13,6 +13,10 @@ h1 {
     z-index:1;
 }
 
+.carousel-caption h1 {
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
 .d-block {
     height: 23rem;
 }
