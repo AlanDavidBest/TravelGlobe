@@ -1,9 +1,14 @@
 .form-inline {
+    width: 17vw;
     display: flex;
     justify-content: space-around;
-    padding:20px;
+    /* padding:20px; */
 }
 
-
+@media screen and (max-width: 800px) {
+    .form-inline {
+        width: 16vw;
+    }
+}
 
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */

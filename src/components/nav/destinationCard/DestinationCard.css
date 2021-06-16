@@ -3,8 +3,11 @@
 .grow:hover { transform: scale(1.05); }
 
 .card-title.h5 {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
   user-select: none;
-  padding-top:25%;
   color: white;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -14,6 +17,7 @@
 }
 
 .card-header {
+  font-size: 0.75em;
   transition: background-color 0.75s ease-in-out;
   text-align: left;
 }
@@ -30,13 +34,22 @@
 }
 
 .card-img{
-  height: 10vh;
+  /* height: 10vh; */
+  height: 100px;
   overflow: hidden;
   object-fit: cover;
 }
 
-.card {
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+.card-body {
+  font-size: 1em;
+}
+
+@media screen and (max-width: 800px) {
+  .card-body  {
+    margin-left: 0px;
+  }
+
+  .card-header {
+    font-size: 0.5em;
+  }
 }

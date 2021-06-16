@@ -7,7 +7,7 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
         <Carousel.Item>
             <Carousel.Caption>
                 <h1>{title}</h1>
-                <a href="https://onthebeach.co.uk" target="_blank">
+                <a href="https://onthebeach.co.uk" target="_blank" rel="noopener noreferrer">
                   <Button>Search this Destination</Button>
                 </a>
             </Carousel.Caption>

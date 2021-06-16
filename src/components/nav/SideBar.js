@@ -50,6 +50,11 @@ class SideBar extends React.Component {
         >
           <Nav.Item>
             <Search onSearch={this.props.handleMatchedCities} />
+            <Button variant="dark" className="closebtn"
+              onClick={() => this.closeNav()}
+            >
+            &times;
+          </Button>
           </Nav.Item>
 
           {this.props.matchedCities.map((item) => {
@@ -64,15 +69,6 @@ class SideBar extends React.Component {
               </Nav.Item>
             );
           })}
-          <Button
-            variant="dark"
-            className="closebtn"
-            onClick={() => {
-              this.closeNav();
-            }}
-          >
-            &times;
-          </Button>
         </Nav>
       </>
     );

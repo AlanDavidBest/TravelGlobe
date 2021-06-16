@@ -11,6 +11,13 @@
   padding-top: 60px;
 }
 
+.sidebar  {
+  position: absolute;
+  top: 0;
+  font-size: 32px;
+  margin-left: 50px;
+}
+
 .sidebar a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
@@ -33,13 +40,18 @@
   z-index: 1;
 }
 
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.nav-item {
+  display: grid;
+  grid-column: auto 1fr;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
+
+.closebtn {
+  grid-column: 2;
+}
+
 @media screen and (max-height: 450px) {
   .sidebar {
     padding-top: 15px;
@@ -49,5 +61,10 @@
   }
 }
 
+@media screen and (max-width: 800px) {
+  .sidebar  {
+    margin-left: 0px;
+  }
+}
 
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */

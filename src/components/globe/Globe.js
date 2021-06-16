@@ -4,7 +4,6 @@ import {
   LabelStyle,
   Cartesian2,
   VerticalOrigin,
-  Color,
 } from "cesium";
 import { Viewer, Entity } from "resium";
 // import Plane from "../plane/Plane";
@@ -16,15 +15,9 @@ import Marker from "../../images/marker.png";
 import POI from "../../images/pointOfInterest2.png";
 import Arrow from "../../images/YouAreHere.png";
 
+const COUNTRY_ZOOM = 5000000;
+const CITY_ZOOM = 15000;
 const dummyCredit = document.createElement("div");
-
-// const screenClickToCartesian3 = (current, x, y) => {
-//   const scene = current?.cesiumElement?.scene;
-//   if (!scene) return;
-//   const ellipsoid = scene.globe.ellipsoid;
-//   return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
-// }
-
 class Global extends React.Component {
   constructor(props) {
     super(props);
@@ -65,7 +58,7 @@ class Global extends React.Component {
 
   flyToDestination(destination) {
     console.log("Destination: " + JSON.stringify(destination))
-    let altitude = destination.type === "City" ? 5000 : 5000000;
+    let altitude = destination.type === "Country" ? COUNTRY_ZOOM : CITY_ZOOM;
     console.log("Altitude: " + altitude)
     this.ref.current.cesiumElement.camera.flyTo({
       destination: Cartesian3.fromDegrees(
@@ -162,7 +155,7 @@ class Global extends React.Component {
         >
           <PolygonCountries />
           {this.state.matchedCities.map((entry) => {
-            let icon = entry.type === "landmark" ?  Marker : POI;
+            let icon = entry.type === "Landmark" ?  POI : Marker;
             return (
               <>
               <Entity

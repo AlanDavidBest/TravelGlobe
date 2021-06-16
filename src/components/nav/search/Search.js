@@ -45,10 +45,31 @@ class Search extends React.Component {
             location: {
               latitude: searchResult.lat,
               longitude: searchResult.lng
-            },
-            landmarks: searchResult.landmarks
+            }
           }
-          return matchedCities.push(entry);
+          matchedCities.push(entry);
+
+          if(searchResult.landmarks && searchResult.landmarks.length > 0) {
+            searchResult.landmarks.forEach(landmark => {
+              entry = {
+                id: searchResult.id,
+                type: "Landmark",
+                name: landmark.name,
+                city: searchResult.city,
+                description: landmark.name,
+                country: searchResult.country,
+                image: `https://source.unsplash.com/1600x900/?${landmark.name}`,
+                iso2: searchResult.iso2,
+                iso3: searchResult.iso3,
+                location: {
+                  latitude: landmark.lat,
+                  longitude: landmark.lng
+                }
+              }
+              matchedCities.push(entry);
+            })
+          }
+          return matchedCities;
         });
       countries.features
         .filter((country) =>
