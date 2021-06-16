@@ -4,7 +4,7 @@
 
 .card-title.h5 {
   user-select: none;
-  padding-top:50%;
+  padding-top:25%;
   color: white;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -25,3 +25,8 @@
   margin-top: -5px;
 }
 
+.card-img{
+  height: 10vh;
+  overflow: hidden;
+  object-fit: cover;
+}
