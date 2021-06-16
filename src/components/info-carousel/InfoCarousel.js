@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Button } from "react-bootstrap";
 import "./InfoCarousel.css";
 
 export const InfoCarousel = ({ title, image, description, rating, weather, currency, languages }) => (
@@ -7,6 +7,9 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
         <Carousel.Item>
             <Carousel.Caption>
                 <h1>{title}</h1>
+                <a href="https://onthebeach.co.uk" target="_blank">
+                  <Button>Search this Destination</Button>
+                </a>
             </Carousel.Caption>
 
             <img
@@ -83,34 +86,34 @@ const WeatherWidget = ({ title, weather }) => {
     return (
         <Carousel.Caption>
             <h1>{title}</h1>
-            <div class="weather-container">
+            <div className="weather-container">
                 {
-                    weather.map((w) => (
+                    weather.map(({ name, celsius }) => (
                         <div className="weather-item">
-                            <h3>{w.name}</h3>
+                            <h3>{name}</h3>
                             {
-                                getWeatherIcon(w.name)
+                                getWeatherIcon(name)
                             }
-                            <h4>{`${w.celcius}'C`}</h4>
+                            <h4>{`${celsius}'C`}</h4>
                         </div>
                     ))
                 }
             </div>
 
-            <div class="weather-container">
+            <div className="weather-container">
                         <div className="weather-item">
                             <h3>From MAN: </h3>
-                            <i class="fas fa-plane"></i>
+                            <i className="fas fa-plane" />
                             <h4>02:45hrs</h4>
                         </div>
                         <div className="weather-item">
                             <h3>From LPL: </h3>
-                            <i class="fas fa-plane"></i>
+                            <i className="fas fa-plane" />
                             <h4>02:57hrs</h4>
                         </div>
                         <div className="weather-item">
                             <h3>From BHX: </h3>
-                            <i class="fas fa-plane"></i>
+                            <i className="fas fa-plane" />
                             <h4>02:32hrs</h4>
                         </div>
             </div>

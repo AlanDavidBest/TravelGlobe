@@ -16,12 +16,12 @@ import Marker from "../../images/marker.png";
 
 const dummyCredit = document.createElement("div");
 
-// const screenClickToCartesian3 = (current, x, y) => {
-//   const scene = current?.cesiumElement?.scene;
-//   if (!scene) return;
-//   const ellipsoid = scene.globe.ellipsoid;
-//   return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
-// }
+const screenClickToCartesian3 = (current, x, y) => {
+  const scene = current?.cesiumElement?.scene;
+  if (!scene) return;
+  const ellipsoid = scene.globe.ellipsoid;
+  return scene.camera.pickEllipsoid(new Cartesian2(x, y), ellipsoid);
+}
 
 class Global extends React.Component {
   constructor(props) {
@@ -36,6 +36,8 @@ class Global extends React.Component {
         x: 0,
         y: 0,
       },
+      locationId: null,
+      locationName: "",
       userLat: 0,
       userLng: 0,
     };
@@ -64,8 +66,13 @@ class Global extends React.Component {
       destination: Cartesian3.fromDegrees(
         destination.longitude,
         destination.latitude,
-        5000000
+        5000
       ),
+    });
+
+    this.setState({
+
+      cardPosition: { x: 0, y: 0 }
     });
   }
 
@@ -85,11 +92,13 @@ class Global extends React.Component {
     });
   }
 
-  onEntityClick = ({ position: { x, y } }) => {
+  onEntityClick = ({ position: { x, y } }, { id, city }) => {
     // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
-
+    //
     this.setState({
       cardPosition: { x, y },
+      locationId: id,
+      locationName: city,
     });
   };
 
@@ -138,8 +147,9 @@ class Global extends React.Component {
 
           {this.state.matchedCities.map((entry) => {
             return (
+              <>
               <Entity
-                onClick={this.onEntityClick}
+                onClick={e => this.onEntityClick(e, entry)}
                 name={entry.city}
                 billboard={{
                   image: Marker,
@@ -156,6 +166,29 @@ class Global extends React.Component {
                 }}
                 position={Cartesian3.fromDegrees(entry.lng, entry.lat, 0)}
               ></Entity>
+
+              {entry.landmarks && entry.landmarks.map((landmark) => {
+                return (
+                  <Entity
+                  name={landmark.name}
+
+                  label={{
+                    text: `${landmark.name}`,
+                    font: "36pt",
+                    style: LabelStyle.FILL_AND_OUTLINE,
+                    outlineWidth: 3,
+                    verticalOrigin: VerticalOrigin.BOTTOM,
+                    pixelOffset: new Cartesian2(0, -20),
+                  }}
+                  position={Cartesian3.fromDegrees(landmark.lng, landmark.lat, 0)}
+                  point={{
+                    pixelSize: 20,
+                    color: Color.RED
+                  }}
+                ></Entity>
+                )
+              })}
+              </>
             );
           })}
           <Entity
@@ -188,11 +221,18 @@ class Global extends React.Component {
           /> */}
         </Viewer>
         {this.isPopoverOpen() && (
-          <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+          <Info
+            locationId={this.state.locationId}
+            locationName={this.state.locationName}
+            x={this.state.cardPosition.x}
+            y={this.state.cardPosition.y}
+          />
         )}
       </>
     );
   }
 }
+
 Global.contextType = CesiumContext;
+
 export default Global;

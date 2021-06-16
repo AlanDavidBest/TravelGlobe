@@ -13,7 +13,12 @@ class SideBar extends React.Component {
   }
 
   handleCardClick(item) {
-    this.props.flyTo({ latitude: item.lat, longitude: item.lng });
+    this.props.flyTo({
+      locationId: item.id,
+      locationName: item.city,
+      latitude: item.lat,
+      longitude: item.lng
+    });
   }
 
   openNav() {

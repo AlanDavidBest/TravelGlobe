@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1826645935,
+    "title": "London",
+    "image": "https://source.unsplash.com/1600x900/?london",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie. Sed mollis dui et arcu blandit tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie.",
+    "rating": 2,
+    "weather": [
+      { "name": "Spring", "celsius": 11 },
+      { "name": "Summer", "celsius": 20 },
+      { "name": "Autumn", "celsius": 9 },
+      { "name": "Winter", "celsius": 4 }
+    ],
+    "currency": [
+      { "icon": "£", "amount": 1, "atHome": true, "prepend": true },
+      { "icon": "¥", "amount": 1.5, "atHome": false, "prepend": false }
+    ],
+    "languages": [
+      "English"
+    ]
+  },
+  {
+    "id": 1250015082,
+    "title": "Paris",
+    "image": "https://source.unsplash.com/1600x900/?paris",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie. Sed mollis dui et arcu blandit tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie.",
+    "rating": 2,
+    "weather": [
+      { "name": "Spring", "celsius": 11 },
+      { "name": "Summer", "celsius": 20 },
+      { "name": "Autumn", "celsius": 9 },
+      { "name": "Winter", "celsius": 4 }
+    ],
+    "currency": [
+      { "icon": "£", "amount": 1, "atHome": true, "prepend": true },
+      { "icon": "¥", "amount": 1.5, "atHome": false, "prepend": false }
+    ],
+    "languages": [
+      "French"
+    ]
+  }
+]
