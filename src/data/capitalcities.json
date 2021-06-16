@@ -179,7 +179,14 @@
     "admin_name": "Île-de-France",
     "capital": "primary",
     "population": 11020000,
-    "id": 1250015082
+    "id": 1250015082,
+    "landmarks": [
+      {
+        "name": "Eiffel Tower",
+        "lat": 48.8584,
+        "lng": 2.2945
+      }
+    ]
   },
   {
     "city": "London",
@@ -192,7 +199,19 @@
     "admin_name": "London, City of",
     "capital": "primary",
     "population": 10979000,
-    "id": 1826645935
+    "id": 1826645935,
+    "landmarks": [
+      {
+        "name": "Big Ben",
+        "lat": 51.5007,
+        "lng": -0.1246
+      },
+      {
+        "name": "St Pancras International",
+        "lat": 51.5314,
+        "lng": -0.1261
+      }
+    ]
   },
   {
     "city": "Lima",
