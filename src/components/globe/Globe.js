@@ -36,6 +36,8 @@ class Global extends React.Component {
         x: 0,
         y: 0,
       },
+      locationId: null,
+      locationName: "",
       userLat: 0,
       userLng: 0,
     };
@@ -66,6 +68,12 @@ class Global extends React.Component {
         destination.latitude,
         5000000
       ),
+    });
+
+    this.setState({
+      locationId: destination.locationId,
+      locationName: destination.locationName,
+      cardPosition: { x: 0, y: 0 }
     });
   }
 
@@ -188,11 +196,18 @@ class Global extends React.Component {
           /> */}
         </Viewer>
         {this.isPopoverOpen() && (
-          <Info x={this.state.cardPosition.x} y={this.state.cardPosition.y} />
+          <Info
+            locationId={this.state.locationId}
+            locationName={this.state.locationName}
+            x={this.state.cardPosition.x}
+            y={this.state.cardPosition.y}
+          />
         )}
       </>
     );
   }
 }
+
 Global.contextType = CesiumContext;
+
 export default Global;
