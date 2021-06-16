@@ -164,21 +164,21 @@ class Global extends React.Component {
             return (
               <Entity
                 onClick={this.onEntityClick}
-                name={entry.city}
+                name={entry.name}
                 billboard={{
                   image: Marker,
                   width: 24,
                   height: 36,
                 }}
                 label={{
-                  text: `${entry.city}, ${entry.iso3}`,
+                  text: `${entry.name}`,
                   font: "36pt",
                   style: LabelStyle.FILL_AND_OUTLINE,
                   outlineWidth: 3,
                   verticalOrigin: VerticalOrigin.BOTTOM,
                   pixelOffset: new Cartesian2(0, -20),
                 }}
-                position={Cartesian3.fromDegrees(entry.lng, entry.lat, 0)}
+                position={Cartesian3.fromDegrees(entry.location.longitude, entry.location.latitude, 0)}
               ></Entity>
             );
           })}

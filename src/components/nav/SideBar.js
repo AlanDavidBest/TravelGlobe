@@ -12,7 +12,7 @@ class SideBar extends React.Component {
   
   handleMouseEnter = (item) => {
     this.props.onEntityClick({ position: { x:0, y:0 }} ); // Close any open popup
-    this.props.flyTo({ latitude: item.lat, longitude: item.lng })
+    this.props.flyTo({ latitude: item.location.latitude, longitude: item.location.longitude })
   }
 
   openNav() {
