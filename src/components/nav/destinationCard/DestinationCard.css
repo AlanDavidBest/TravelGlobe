@@ -1,98 +1,12 @@
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
 
-.sidebar a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.05); }
 
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.openbtn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 26px;
-  margin:20px;
-  z-index: 1;
-}
-
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-.nav-item {
-  padding: 10px;
-}
-
-.card-icon-top {
-  position: absolute;
-  top: -4px;
-  right: 0;
-  width: 32px;
-  z-index: 8888;
-}
-
-.card-img-top {
-  position: relative;
-  width: 60%;
-}
-
-.card {
-  border-color: gray;
-  border-width: 4px;
-  transition: border-color 0.3s ease-in-out;
-}
-
-.card-body {
-  position: absolute;
-  right: 0px;
-  width: 50%;
-  height: 100%;
-  justify-content: right;
-  color: black;
-  background-color: lightgray;
-  transition: background-color 0.25s ease-in-out;
-}
-
-.card:hover {
-  border-color: white;
-}
-
-.card-body:hover {
-  background-color : white;
-}
-
-@media screen and (max-height: 450px) {
-  .sidebar {
-    padding-top: 15px;
-  }
-  .sidebar a {
-    font-size: 18px;
-  }
-}
 .card-title.h5 {
   user-select: none;
+  padding-top:25%;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .card-text {
@@ -100,17 +14,29 @@
 }
 
 .card-header {
-  background-color: hsl(60, 75%, 50%);
-  transition: background-color 0.25s ease-in-out;
-  z-index: 99999;
+  transition: background-color 0.75s ease-in-out;
+  text-align: left;
 }
 
-.card-header:hover {
-  background-color: hsl(60, 100%, 50%);
-  z-index: 99999;
-}
 /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_sidenav */
+ 
+.card-icon-top{
+  float: right;
+  margin-top: -5px;
+}
 
 .landmark-title {
   color: white;
+}
+
+.card-img{
+  height: 10vh;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.card {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
 }

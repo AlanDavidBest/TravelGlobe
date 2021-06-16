@@ -39,14 +39,14 @@ class Search extends React.Component {
             city: searchResult.city,
             description: searchResult.country,
             country: searchResult.country,
-            image: "https://picsum.photos/200/100?" + Math.random(),
+            image: `https://source.unsplash.com/1600x900/?${searchResult.city}`,
             iso2: searchResult.iso2,
             iso3: searchResult.iso3,
-
             location: {
               latitude: searchResult.lat,
               longitude: searchResult.lng
-            }
+            },
+            landmarks: searchResult.landmarks
           }
           return matchedCities.push(entry);
         });
@@ -69,7 +69,7 @@ class Search extends React.Component {
             city: searchResult.properties.name,
             description: "",
             country: "",
-            image: "https://picsum.photos/200/100?" + Math.random(),
+            image: `https://source.unsplash.com/1600x900/?${searchResult.properties.name}`,
             iso2: countryMap.filter(x => x.iso3 === searchResult.id)[0].iso2,
             iso3: searchResult.id,
             location: {

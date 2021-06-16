@@ -6,63 +6,80 @@ class DestinationCard extends React.Component {
   render() {
     return (
       <>
-        <Card
-          key={this.props.item.id}
-          bg={this.props.item.type === "City" ? "info" : "dark"}
-          text="black"
-          onClick={() => {
-            this.props.handleCardClick(this.props.item);
-          }}
-          onMouseEnter={() => {
-            this.props.handleMouseEnter(this.props.item);
-          }}
-        >
-          {/* Courtesy of https://www.countryflags.io/ */}
-          <Card.Img variant="top" src={"https://www.countryflags.io/" + this.props.item.iso2 + "/flat/64.png"} bsPrefix="card-icon" />
-          <Card.Img variant="top" src={`https://source.unsplash.com/1600x900/?${this.props.item.city}`} />
-          <Card.Header>{this.props.item.type}</Card.Header> 
-          <Card.Body>
-            <Card.Title>{this.props.item.city}</Card.Title>
-            <Card.Text>{this.props.item.country}</Card.Text>
-            {/* <Card.Title>{this.props.item.name}</Card.Title>
-          <Card.Text>{this.props.item.description}</Card.Text> */}
-          </Card.Body>
-        </Card>
-
-        <br />
-
-        { this.props.item.landmarks &&
-          <h4 className="landmark-title">Landmarks: </h4>
-        }
-        
-        {(this.props.item.landmarks || []).map((l) => (
+      <Card
+        className="text-center grow"
+        key={this.props.item.id}
+        bg={this.props.item.type === "City" ? "primary" : "success"}
+        text={this.props.item.type === "Beach" ? "black" : "white"}
+        onClick={() => {
+          this.props.handleCardClick(this.props.item);
+        }}
+        onMouseEnter={() => {
+          this.props.handleMouseEnter(this.props.item);
+        }}
+      >
+        <Card.Header>
+        {this.props.item.type} {/* Curtesy of https://www.countryflags.io/ */}
+          <Card.Img
+            variant="top"
+            src={
+              "https://www.countryflags.io/" +
+              this.props.item.iso2 +
+              "/flat/32.png"
+            }
+            bsPrefix="card-icon"
+          />
+        </Card.Header>
+        <Card.Img src={this.props.item.image} alt="Card image" />
+        <Card.ImgOverlay>
+        <Card.Body>
+          <Card.Title>{this.props.item.name}</Card.Title>
+        </Card.Body>
+        </Card.ImgOverlay>
+      </Card>
+      {(this.props.item.landmarks || []).map((landmark) => (
           <>
             <Card
-              key={l.name}
-              bg="light"
-              text="black"
+              className="text-center grow"
+              key={landmark.name}
+              bg={"info"}
+              text={"white"}
               onClick={() => {
-                console.log(l)
                 this.props.handleCardClick({
-                  id: l.name,
-                  city: l.name,
-                  lat: l.lat,
-                  lng: l.lng
+                  id: landmark.name,
+                  city: landmark.name,
+                  lat: landmark.lat,
+                  lng: landmark.lng
                 })
               }}
-            >
-              <Card.Img variant="top" src={`https://source.unsplash.com/1600x900/?${l.name}`} />
+              onMouseEnter={() => {
+                this.props.handleMouseEnter(this.props.item);
+              }}
+             >
+              <Card.Header>
+              {"Points of Interest"} {/* Curtesy of https://www.countryflags.io/ */}
+                <Card.Img
+                  variant="top"
+                  src={
+                    "https://www.countryflags.io/" +
+                    this.props.item.iso2 +
+                    "/flat/32.png"
+                  }
+                  bsPrefix="card-icon"
+                />
+              </Card.Header>
+              <Card.Img src={`https://source.unsplash.com/1600x900/?${landmark.name}`} />
+              <Card.ImgOverlay>
               <Card.Body>
-                <Card.Title>{l.name}</Card.Title>
+                <Card.Title>{landmark.name}</Card.Title>
               </Card.Body>
+              </Card.ImgOverlay>
             </Card>
-
-            <hr></hr>
           </>
-        ))}
+      ))}
       </>
-    );
-  }
-}
+    )}}
+
+
 
 export default DestinationCard;

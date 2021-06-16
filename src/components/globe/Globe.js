@@ -13,6 +13,7 @@ import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import Marker from "../../images/marker.png";
+import POI from "../../images/pointOfInterest2.png";
 import Arrow from "../../images/YouAreHere.png";
 
 const dummyCredit = document.createElement("div");
@@ -161,14 +162,14 @@ class Global extends React.Component {
         >
           <PolygonCountries />
           {this.state.matchedCities.map((entry) => {
+            let icon = entry.type === "landmark" ?  Marker : POI;
             return (
               <>
               <Entity
-
                 onClick={e => this.onEntityClick(e, entry)}
                 name={entry.city}
                 billboard={{
-                  image: Marker,
+                  image: icon,
                   width: 24,
                   height: 36,
                 }}
@@ -182,28 +183,6 @@ class Global extends React.Component {
                 }}
                 position={Cartesian3.fromDegrees(entry.location.longitude, entry.location.latitude, 0)}
               ></Entity>
-
-              {entry.landmarks && entry.landmarks.map((landmark) => {
-                return (
-                  <Entity
-                  name={landmark.name}
-
-                  label={{
-                    text: `${landmark.name}`,
-                    font: "36pt",
-                    style: LabelStyle.FILL_AND_OUTLINE,
-                    outlineWidth: 3,
-                    verticalOrigin: VerticalOrigin.BOTTOM,
-                    pixelOffset: new Cartesian2(0, -20),
-                  }}
-                  position={Cartesian3.fromDegrees(landmark.lng, landmark.lat, 0)}
-                  point={{
-                    pixelSize: 20,
-                    color: Color.RED
-                  }}
-                ></Entity>
-                )
-              })}
               </>
             );
           })}
