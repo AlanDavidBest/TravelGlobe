@@ -11,16 +11,16 @@ export const Info = ({ x, y }) => {
     rating: 2,
     weather: [
       { name: "Spring", celcius: 11 },
-      { name: "Summer", celcius: 200 },
-      { name: "Autumn", celcius: 11 },
-      { name: "Winter", celcius: 11 }
+      { name: "Summer", celcius: 20 },
+      { name: "Autumn", celcius: 9 },
+      { name: "Winter", celcius: 4 }
     ],
     currency: [
       { icon: "£", amount: 1, atHome: true, prepend: true },
-      { icon: "$", amount: 1.5, atHome: false, prepend: true },
-      { icon: "€", amount: 1.5, atHome: false, prepend: true },
-      { icon: "¥", amount: 1.5, atHome: false, prepend: false },
-      { icon: "Fr", amount: 1.5, atHome: false, prepend: false },
+      { icon: "¥", amount: 1.5, atHome: false, prepend: false }
+    ],
+    languages: [
+      "French", "Spanish"
     ]
   };
 

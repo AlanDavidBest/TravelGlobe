@@ -1,6 +1,5 @@
 /* Card Carousel Overrides */
 h1 {
-    text-align: left;
     font-family: 'Pacifico', cursive;
     font-size: 3rem;
 }
@@ -9,8 +8,7 @@ h1 {
     left: auto;
     right: auto;
     bottom: auto;
-    padding: 1.25rem;
-    text-align: left;
+    padding: 1.25rem 5rem 1.25rem 5rem;
     width: 100%;
     z-index:1;
 }
@@ -30,8 +28,7 @@ h1 {
 .rating-container {
     display: inline;
     font-size: 3rem;
-    text-align: left;
-    bottom: 15px;
+    bottom: 10px;
     position: relative;
 }
 
@@ -42,7 +39,7 @@ h1 {
 }
 
 .weather-item {
-    margin: 20px;
+    margin: 0px 20px 0px 20px;
 }
 
 .weather-item i {
@@ -50,16 +47,12 @@ h1 {
 }
 
 .currency-container {
-    display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     text-align: center;
 }
 
-.currency-item { 
-    margin: 20px;
-}
-
-.currency-item-athome { 
-   text-decoration: underline;
+.description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 300;
 }
