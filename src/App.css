@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.cesium-infoBox-iframe{
+  height: 200px !important;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

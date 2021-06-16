@@ -1,16 +1,14 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import SideBar from "./components/nav/SideBar.js";
 import Globe from "./components/globe/Globe.js";
-import "./components/nav/SideBar.css";
 import OtbImage from "./components/otbimage/OtbImage";
-import CesiumContext, { state }  from "./CesiumContext"
+import CesiumContext, { state } from "./CesiumContext";
 
 function App() {
+  
   return (
     <div className="App">
       <CesiumContext.Provider value={state}>
-        <SideBar />
         <Globe />
         <OtbImage />
       </CesiumContext.Provider>

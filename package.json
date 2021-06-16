@@ -1,6 +1,7 @@
 {
-  "name": "example",
+  "name": "TravelGlobe",
   "version": "0.1.0",
+  "homepage": "http://AlanDavidBest.github.io/TravelGlobe",
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.1.2",
@@ -21,7 +22,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.1"
   }
 }
