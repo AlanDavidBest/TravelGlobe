@@ -88,7 +88,7 @@ class Global extends React.Component {
   }
 
   defaultPopUp =() => 
-    this.onEntityClick({ position: { x:958.60546875, y:377.59765625 }});
+    this.onEntityClick( this.getScreenCentre() );
   
   onEntityClick = ({ position: { x, y } }) => {
     // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
@@ -107,6 +107,23 @@ class Global extends React.Component {
     });
   };
 
+
+  getScreenCentre = () => {            
+    return {
+              position: {
+                x: this.ref.current.cesiumElement.container.clientWidth / 2, 
+                y: this.ref.current.cesiumElement.container.clientHeight / 2
+              }
+            }
+    // var windowPosition = new Cartesian2(this.ref.current.cesiumElement.container.clientWidth / 2, this.ref.current.cesiumElement.container.clientHeight / 2);
+    // var pickRay = this.ref.current.cesiumElement.scene.camera.getPickRay(windowPosition);
+    // var pickPosition = this.ref.current.cesiumElement.scene.globe.pick(pickRay, this.ref.current.cesiumElement.scene);
+    // var pickPositionCartographic = this.ref.current.cesiumElement.scene.globe.ellipsoid.cartesianToCartographic(pickPosition);
+    // console.log(pickPositionCartographic.longitude * (180/Math.PI));
+    // console.log(pickPositionCartographic.latitude * (180/Math.PI));
+    // return pickPositionCartographic;
+  }
+
   render() {
     return (
       <>
@@ -115,6 +132,7 @@ class Global extends React.Component {
           flyTo={this.flyToDestination}
           handleMatchedCities={this.handleMatchedCities}
           onEntityClick={this.onEntityClick}
+
         />
         <Viewer
           ref={this.ref}

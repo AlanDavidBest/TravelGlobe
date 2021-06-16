@@ -29,6 +29,7 @@ class Search extends React.Component {
             entry.country.toLowerCase().includes(this.state.value.toLowerCase())
         )
         .map(country => {
+          country["image"] = "https://picsum.photos/200/100?" + Math.random();
           return matches.push(country);
         });
     }

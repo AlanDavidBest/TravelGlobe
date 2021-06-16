@@ -18,7 +18,8 @@ class DestinationCard extends React.Component {
       >
         {/* Curtesy of https://www.countryflags.io/ */}
         <Card.Img variant="top" src={"https://www.countryflags.io/" + this.props.item.iso2 + "/flat/64.png"} bsPrefix="card-icon"/>
-        <Card.Img variant="top" src={"https://picsum.photos/200/100?" + Math.random()} />
+        <Card.Img variant="top" src={this.props.item.image} />
+        {/* <Card.Img variant="top" src={"https://picsum.photos/200/100?" + Math.random()} /> */}
         {/* <Card.Header>City</Card.Header> */}
         <Card.Body>
           <Card.Title>{this.props.item.city}</Card.Title>
