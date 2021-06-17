@@ -2,7 +2,7 @@
   {
     "id": 1826645935,
     "title": "London",
-    "image": "https://source.unsplash.com/1600x900/?london",
+    "image": "https://source.unsplash.com/800x450/?london",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie. Sed mollis dui et arcu blandit tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie.",
     "rating": 2,
     "weather": [
@@ -22,7 +22,7 @@
   {
     "id": 1250015082,
     "title": "Paris",
-    "image": "https://source.unsplash.com/1600x900/?paris",
+    "image": "https://source.unsplash.com/800x450/?paris",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie. Sed mollis dui et arcu blandit tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget diam ut purus venenatis molestie.",
     "rating": 2,
     "weather": [

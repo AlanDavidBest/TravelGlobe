@@ -39,7 +39,7 @@ class Search extends React.Component {
             city: searchResult.city,
             description: searchResult.country,
             country: searchResult.country,
-            image: `https://source.unsplash.com/1600x900/?${searchResult.city}`,
+            image: `https://source.unsplash.com/400x225/?${searchResult.city}`,
             iso2: searchResult.iso2,
             iso3: searchResult.iso3,
             location: {
@@ -58,7 +58,7 @@ class Search extends React.Component {
                 city: searchResult.city,
                 description: landmark.name,
                 country: searchResult.country,
-                image: `https://source.unsplash.com/1600x900/?${landmark.name}`,
+                image: `https://source.unsplash.com/400x225/?${landmark.name}`,
                 iso2: searchResult.iso2,
                 iso3: searchResult.iso3,
                 location: {
@@ -87,7 +87,7 @@ class Search extends React.Component {
             city: searchResult.properties.name,
             description: "",
             country: "",
-            image: `https://source.unsplash.com/1600x900/?${searchResult.properties.name}`,
+            image: `https://source.unsplash.com/400x225/?${searchResult.properties.name}`,
             iso2: countryMap.filter(x => x.iso3 === searchResult.id)[0].iso2,
             iso3: searchResult.id,
             location: {
