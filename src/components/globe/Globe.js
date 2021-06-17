@@ -8,7 +8,6 @@ import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import YellowMarker from "../../images/marker.png";
 import OTBMarker from "../../images/otbMarker.png";
-import BlueMarker from "../../images/blueMarker.png";
 import GreenMarker from "../../images/greenMarker.png";
 
 import POI from "../../images/pointOfInterest2.png";

@@ -33,7 +33,7 @@ class Search extends React.Component {
           (city) =>
             city.city.toLowerCase().includes(this.state.value.toLowerCase())
         )
-        .map((searchResult) => {
+        .forEach((searchResult) => {
           let entry = {
             id: searchResult.id,
             type: "City",
@@ -82,7 +82,7 @@ class Search extends React.Component {
             && cities.filter(x => x.iso3 === country.id).length > 0
             && matchedCities.filter(x => x.iso3 === country.id).length < 1
         )
-        .map((searchResult) => {
+        .forEach((searchResult) => {
           let entry = {
             id: searchResult.id,
             type: "Country",
