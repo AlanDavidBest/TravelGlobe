@@ -83,7 +83,7 @@ class Global extends React.Component {
 
     var s = 0;
     this.ref.current.cesiumElement.clock.onTick.addEventListener(() => {
-      if (this.props.konami && s % 30 == 0) {
+      if (this.props.konami && s % 30 === 0) {
         this.setState((prevState, props) => {
           return {
             monsterLng: prevState.monsterLng + 0.1,
