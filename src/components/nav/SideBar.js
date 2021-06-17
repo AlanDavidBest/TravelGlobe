@@ -18,7 +18,7 @@ class SideBar extends React.Component {
   }
 
   openNav() {
-    document.getElementById("nav").style.width = "20vw";
+    document.getElementById("nav").style.width = "23vw";
   }
 
   closeNav() {
