@@ -112,6 +112,7 @@ class Search extends React.Component {
           type="text"
           placeholder="Search..."
           className="mr-sm-2"
+          onSubmit={null}
         />
         {/* <Button variant="outline-success">Search</Button> */}
       </Form>
