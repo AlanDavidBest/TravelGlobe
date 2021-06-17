@@ -113,7 +113,7 @@ class Global extends React.Component {
     }
   }
 
-  onEntityClick = ({ position: { x, y } }, id, city) => {
+  onEntityClick = ({ position: { x, y } }, { id, city }) => {
     this.setState({
       cardPosition: { x, y },
       locationId: id,
