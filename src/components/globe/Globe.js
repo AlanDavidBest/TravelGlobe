@@ -1,17 +1,16 @@
 import React, { createRef } from "react";
-import {
-  Cartesian3,
-  LabelStyle,
-  Cartesian2,
-  VerticalOrigin,
-} from "cesium";
+import { Cartesian3, LabelStyle, Cartesian2, VerticalOrigin } from "cesium";
 import { Viewer, Entity } from "resium";
 // import Plane from "../plane/Plane";
 import Info from "../info/Info";
 import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
-import Marker from "../../images/marker.png";
+import YellowMarker from "../../images/marker.png";
+import OTBMarker from "../../images/otbMarker.png";
+import BlueMarker from "../../images/blueMarker.png";
+import GreenMarker from "../../images/greenMarker.png";
+
 import POI from "../../images/pointOfInterest2.png";
 import Arrow from "../../images/YouAreHere.png";
 
@@ -67,11 +66,11 @@ class Global extends React.Component {
         destination.location.latitude,
         altitude
       ),
-      complete:() =>  this.defaultPopUp(destination)
+      complete: () => this.defaultPopUp(destination),
     });
 
     this.setState({
-      cardPosition: { x: 0, y: 0 }
+      cardPosition: { x: 0, y: 0 },
     });
   }
 
@@ -92,23 +91,23 @@ class Global extends React.Component {
   }
 
   defaultPopUp = (destination) => {
-    let screenCoords = this.getScreenCentre()
-    this.onEntityClick(screenCoords, destination)
-  }
+    let screenCoords = this.getScreenCentre();
+    this.onEntityClick(screenCoords, destination);
+  };
 
-  getScreenCentre = () => {            
+  getScreenCentre = () => {
     return {
       position: {
-        x: this.ref.current.cesiumElement.container.clientWidth / 2, 
-        y: this.ref.current.cesiumElement.container.clientHeight / 2
-      }
-    }
-  }
+        x: this.ref.current.cesiumElement.container.clientWidth / 2,
+        y: this.ref.current.cesiumElement.container.clientHeight / 2,
+      },
+    };
+  };
 
   onEntityClick = ({ position: { x, y } }, item) => {
     this.setState({
       cardPosition: { x, y },
-      selectedItem: item
+      selectedItem: item,
     });
   };
 
@@ -158,28 +157,42 @@ class Global extends React.Component {
         >
           <PolygonCountries />
           {this.state.matchedCities.map((entry) => {
-            let icon = entry.type === "Landmark" ?  POI : Marker;
+            let icon =
+              entry.type === "Landmark"
+                ? POI
+                : entry.type === "Country"
+                ? GreenMarker
+                : entry.type === "City" 
+                ? YellowMarker
+                : OTBMarker;
+
+              let height = entry.type === "Beach" || entry.type === "Landmark" ? 32 : 44
             return (
               <>
-              <Entity
-                onClick={e => {
-                  this.onEntityClick(e, entry)}}
-                name={entry.city}
-                billboard={{
-                  image: icon,
-                  width: 24,
-                  height: 36,
-                }}
-                label={{
-                  text: `${entry.name}`,
-                  font: "36pt",
-                  style: LabelStyle.FILL_AND_OUTLINE,
-                  outlineWidth: 3,
-                  verticalOrigin: VerticalOrigin.BOTTOM,
-                  pixelOffset: new Cartesian2(0, -20),
-                }}
-                position={Cartesian3.fromDegrees(entry.location.longitude, entry.location.latitude, 0)}
-              />
+                <Entity
+                  onClick={(e) => {
+                    this.onEntityClick(e, entry);
+                  }}
+                  name={entry.city}
+                  billboard={{
+                    image: icon,
+                    width: 32,
+                    height: height,
+                  }}
+                  label={{
+                    text: `${entry.name}`,
+                    font: "36pt",
+                    style: LabelStyle.FILL_AND_OUTLINE,
+                    outlineWidth: 3,
+                    verticalOrigin: VerticalOrigin.BOTTOM,
+                    pixelOffset: new Cartesian2(0, -26),
+                  }}
+                  position={Cartesian3.fromDegrees(
+                    entry.location.longitude,
+                    entry.location.latitude,
+                    0
+                  )}
+                />
               </>
             );
           })}

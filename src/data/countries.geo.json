@@ -5094,6 +5094,13 @@
     {
       "type": "Feature",
       "id": "GBR",
+      "beaches": [
+        {
+          "name": "Blackpool Beach",
+          "lat": 53.7902,
+          "lng": -3.0554
+        }
+      ],
       "properties": { "name": "United Kingdom" },
       "geometry": {
         "type": "MultiPolygon",
