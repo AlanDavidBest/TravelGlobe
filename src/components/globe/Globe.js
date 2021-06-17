@@ -31,8 +31,6 @@ class Global extends React.Component {
         x: 0,
         y: 0,
       },
-      locationId: null,
-      locationName: "",
       selectedItem: null,
       userLat: 0,
       userLng: 0,
@@ -43,7 +41,7 @@ class Global extends React.Component {
     this.flyToDestination = this.flyToDestination.bind(this);
     this.isPopoverOpen = this.isPopoverOpen.bind(this);
     this.onEntityClick = this.onEntityClick.bind(this);
-    this.onViewerMove = this.onViewerMove.bind(this);
+    this.onClearPopup = this.onClearPopup.bind(this);
     this.setSelectedItem = this.setSelectedItem.bind(this);
   }
 
@@ -65,11 +63,11 @@ class Global extends React.Component {
     let altitude = destination.type === "Country" ? COUNTRY_ZOOM : CITY_ZOOM;
     this.ref.current.cesiumElement.camera.flyTo({
       destination: Cartesian3.fromDegrees(
-        destination.longitude,
-        destination.latitude,
+        destination.location.longitude,
+        destination.location.latitude,
         altitude
       ),
-      complete: this.defaultPopUp
+      complete:() =>  this.defaultPopUp(destination)
     });
 
     this.setState({
@@ -93,15 +91,9 @@ class Global extends React.Component {
     });
   }
 
-  defaultPopUp =() => {
+  defaultPopUp = (destination) => {
     let screenCoords = this.getScreenCentre()
-    let entry = {
-      entry: {
-        id: this.state.selectedItem,
-        city: this.state.locationCity
-      }
-    }
-    this.onEntityClick( screenCoords, entry)
+    this.onEntityClick(screenCoords, destination)
   }
 
   getScreenCentre = () => {            
@@ -113,20 +105,20 @@ class Global extends React.Component {
     }
   }
 
-  onEntityClick = ({ position: { x, y } }, { id, city }) => {
+  onEntityClick = ({ position: { x, y } }, item) => {
     this.setState({
       cardPosition: { x, y },
-      locationId: id,
-      locationName: city,
+      selectedItem: item
     });
   };
 
   isPopoverOpen = () =>
     this.state.cardPosition.x > 0 && this.state.cardPosition.y > 0;
 
-  onViewerMove = () => {
+  onClearPopup = () => {
     this.setState({
       cardPosition: { x: 0, y: 0 },
+      selectedItem: null,
     });
   };
 
@@ -137,7 +129,7 @@ class Global extends React.Component {
           {...this.state}
           flyTo={this.flyToDestination}
           handleMatchedCities={this.handleMatchedCities}
-          onEntityClick={this.onEntityClick}
+          onClearPopup={this.onClearPopup}
           setSelectedItem={this.setSelectedItem}
         />
         <Viewer
@@ -162,7 +154,7 @@ class Global extends React.Component {
           geocoder={false}
           infoBox={false}
           selectionIndicator={false}
-          onMouseDown={this.onViewerMove}
+          onMouseDown={this.onClearPopup}
         >
           <PolygonCountries />
           {this.state.matchedCities.map((entry) => {
@@ -213,8 +205,7 @@ class Global extends React.Component {
         </Viewer>
         {this.isPopoverOpen() && (
           <Info
-            locationId={this.state.locationId}
-            locationName={this.state.locationName}
+            item={this.state.selectedItem}
             x={this.state.cardPosition.x}
             y={this.state.cardPosition.y}
           />
