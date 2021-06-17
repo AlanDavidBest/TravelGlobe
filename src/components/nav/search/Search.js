@@ -127,7 +127,7 @@ class Search extends React.Component {
           matchedBeaches.push(entry);
         })
     }
-    this.props.onSearch([...matchedCities,...matchedCountries, ...matchedBeaches]);
+    this.props.onSearch([...matchedCities,...matchedBeaches, ...matchedCountries]);
   }
 
   render() {

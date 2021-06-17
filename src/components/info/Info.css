@@ -1,5 +1,5 @@
 .infoContainer {
-  border: 1px solid red;
+  border: 2px solid;
   width: 40rem;
   height: 24rem;
   position: absolute;
@@ -15,4 +15,6 @@
 
 .carousel img {
     border-radius: 15px;
+    width: 100%;
+    user-select: none;
 }
