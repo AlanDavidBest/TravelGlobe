@@ -1,0 +1,16 @@
+[
+  {
+    "id": "GBR",
+    "name": "Blackpool Beach",
+    "city": "Manchester",
+    "lat": 53.7902,
+    "lng": -3.0554
+  },
+  {
+    "id": "GBR",
+    "name": "Ruislip Lido",
+    "city": "London",
+    "lat": 51.5903,
+    "lng": -0.4323
+  }
+]

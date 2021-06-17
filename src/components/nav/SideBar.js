@@ -50,9 +50,9 @@ class SideBar extends React.Component {
           </Button>
           </Nav.Item>
 
-          {this.props.matchedCities.map((item) => {
+          {this.props.matchedCities.map((item, index) => {
             return (
-              <Nav.Item key={item.id}>
+              <Nav.Item key={`${item.id}-${index}`}>
                 <DestinationCard
                   key={item.id}
                   item={item}

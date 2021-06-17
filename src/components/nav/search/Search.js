@@ -4,6 +4,7 @@ import { Form, FormControl } from "react-bootstrap";
 import countryMap from "../../../data/countries.json";
 import cities from "../../../data/capitalcities.json";
 import countries from "../../../data/countries.geo.json";
+import beaches from "../../../data/beaches.json";
 import "./Search.css";
 
 class Search extends React.Component {
@@ -24,6 +25,7 @@ class Search extends React.Component {
   search() {
     let matchedCities = [];
     let matchedCountries = [];
+    let matchedBeaches = [];
 
     if (this.state.value.length > 2) {
       cities
@@ -69,27 +71,6 @@ class Search extends React.Component {
               matchedCities.push(entry);
             })
           }
-
-          if(searchResult.beaches && searchResult.beaches.length > 0) {
-            searchResult.beaches.forEach(beach => {
-              entry = {
-                id: searchResult.id,
-                type: "Beach",
-                name: beach.name,
-                city: searchResult.city,
-                description: beach.name,
-                country: searchResult.country,
-                image: `https://source.unsplash.com/1600x900/?${beach.name}`,
-                iso2: searchResult.iso2,
-                iso3: searchResult.iso3,
-                location: {
-                  latitude: beach.lat,
-                  longitude: beach.lng
-                }
-              }
-              matchedCities.push(entry);
-            })
-          }
             
           return matchedCities;
         });
@@ -118,31 +99,35 @@ class Search extends React.Component {
             }
           }
           matchedCountries.push(entry);
-
-          if(searchResult.beaches && searchResult.beaches.length > 0) {
-            searchResult.beaches.forEach(beach => {
-              entry = {
-                id: searchResult.id,
-                type: "Beach",
-                name: beach.name,
-                city: searchResult.city,
-                description: beach.name,
-                country: searchResult.country,
-                image: `https://source.unsplash.com/1600x900/?${beach.name}`,
-                iso2: countryMap.filter(x => x.iso3 === searchResult.id)[0].iso2,
-                iso3: searchResult.id,
-                location: {
-                  latitude: beach.lat,
-                  longitude: beach.lng
-                }
-              }
-              matchedCountries.push(entry);
-            })
-          }
         });
-      //beaches search
+
+      beaches
+        .filter(beach =>
+          this.state.value.toLowerCase().includes("beach")
+          || beach.name.toLowerCase().includes(this.state.value.toLowerCase())
+          || (matchedCities.some(city => city.city === beach.city)
+          || matchedCountries.some(country => country.id === beach.id))
+        )
+        .forEach(beach => {
+          let entry = {
+            id: beach.id,
+            type: "Beach",
+            name: beach.name,
+            city: countryMap.filter(x => x.iso3 === beach.id)[0].iso2,
+            description: beach.name,
+            country: countryMap.filter(x => x.iso3 === beach.id)[0].name,
+            image: `https://source.unsplash.com/1600x900/?${beach.name}`,
+            iso2: countryMap.filter(x => x.iso3 === beach.id)[0].iso2,
+            iso3: beach.id,
+            location: {
+              latitude: beach.lat,
+              longitude: beach.lng
+            }
+          }
+          matchedBeaches.push(entry);
+        })
     }
-    this.props.onSearch([...matchedCities,...matchedCountries]);
+    this.props.onSearch([...matchedCities,...matchedCountries, ...matchedBeaches]);
   }
 
   render() {
