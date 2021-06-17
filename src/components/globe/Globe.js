@@ -1,21 +1,22 @@
 import React, { createRef } from "react";
 import { Cartesian3, LabelStyle, Cartesian2, VerticalOrigin } from "cesium";
 import { Viewer, Entity } from "resium";
-// import Plane from "../plane/Plane";
 import Info from "../info/Info";
+import Plane from "../plane/Plane";
 import CesiumContext from "../../CesiumContext";
 import SideBar from "../nav/SideBar";
 import PolygonCountries from "./polygonCountries/PolygonCountries";
 import YellowMarker from "../../images/marker.png";
 import OTBMarker from "../../images/otbMarker.png";
 import GreenMarker from "../../images/greenMarker.png";
+import BlueMarker from "../../images/blueMarker.png";
 
-import POI from "../../images/pointOfInterest2.png";
 import Arrow from "../../images/YouAreHere.png";
 
 const COUNTRY_ZOOM = 5000000;
 const CITY_ZOOM = 15000;
 const dummyCredit = document.createElement("div");
+
 class Global extends React.Component {
   constructor(props) {
     super(props);
@@ -32,6 +33,8 @@ class Global extends React.Component {
       selectedItem: null,
       userLat: 0,
       userLng: 0,
+      monsterLat: 47.751076,
+      monsterLng: -120.740135,
     };
 
     this.handleUserLocation = this.handleUserLocation.bind(this);
@@ -78,6 +81,17 @@ class Global extends React.Component {
       this.context.setInstance(this.ref.current.cesiumElement);
     }
 
+    var s = 0;
+    this.ref.current.cesiumElement.clock.onTick.addEventListener(() => {
+      if (this.props.konami && s % 30 == 0) {
+        this.setState((prevState, props) => {
+          return {
+            monsterLng: prevState.monsterLng + 0.1,
+          };
+        });
+      }
+      s++;
+    });
     let latitude = 0;
     let longitude = 0;
     let self = this;
@@ -109,6 +123,8 @@ class Global extends React.Component {
       selectedItem: item,
     });
   };
+
+  konamiCodeActivated = () => this.props.konami;
 
   isPopoverOpen = () =>
     this.state.cardPosition.x > 0 && this.state.cardPosition.y > 0;
@@ -142,6 +158,7 @@ class Global extends React.Component {
           full
           creditContainer={dummyCredit}
           timeline={false}
+          shouldAnimate={true}
           animation={false}
           fullscreenButton={false}
           sceneModePicker={false}
@@ -158,14 +175,14 @@ class Global extends React.Component {
           {this.state.matchedCities.map((entry) => {
             let icon =
               entry.type === "Landmark"
-                ? POI
+                ? BlueMarker
                 : entry.type === "Country"
                 ? GreenMarker
-                : entry.type === "City" 
+                : entry.type === "City"
                 ? YellowMarker
                 : OTBMarker;
 
-              let height = entry.type === "Beach" || entry.type === "Landmark" ? 32 : 44
+            let height = entry.type === "Beach" ? 32 : 44;
             return (
               <>
                 <Entity
@@ -208,12 +225,16 @@ class Global extends React.Component {
               0
             )}
           />
-          {/* <Plane
-            longitude={-0.124625}
-            latitude={51.510357}
-            elevation={100000}
-          /> */}
+
+          {this.konamiCodeActivated() && (
+            <Plane
+              longitude={this.state.monsterLng}
+              latitude={this.state.monsterLat}
+              elevation={0}
+            />
+          )}
         </Viewer>
+
         {this.isPopoverOpen() && (
           <Info
             item={this.state.selectedItem}

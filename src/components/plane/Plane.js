@@ -1,22 +1,29 @@
-import { Cartesian3 } from "cesium";
+import { Cartesian3, HeadingPitchRoll, Transforms } from "cesium";
 import { Entity } from "resium";
-import planeModel from "../../models/Cesium_Air.glb"
-
+import planeModel from "../../models/Monster.glb";
 
 function Plane(props) {
+  
+  var position = Cartesian3.fromDegrees(
+    props.longitude,
+    props.latitude,
+    props.elevation
+  );
+  var hpr = new HeadingPitchRoll(0, 0, 0);
+  var orientation = Transforms.headingPitchRollQuaternion(position, hpr);
   return (
     <Entity
-      position={Cartesian3.fromDegrees(
-        props.longitude,
-        props.latitude,
-        props.elevation
-      )}
+      position={position}
+      orientation={orientation}
+
       model={{
         uri: planeModel,
         maximumScale: 10000,
-        minimumPixelSize: 256,
+        minimumPixelSize: 128,
+        runAnimations: true,
+        clampAnimations: true
       }}
-      // tracked
+      
     />
   );
 }
