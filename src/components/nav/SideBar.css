@@ -15,7 +15,12 @@
   position: absolute;
   top: 0;
   font-size: 32px;
-  margin-left: 50px;
+}
+
+@media screen and (max-width: 900px) {
+  .sidebar {
+    margin-left: 50px;
+  }
 }
 
 .sidebar a {
