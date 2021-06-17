@@ -69,6 +69,27 @@ class Search extends React.Component {
               matchedCities.push(entry);
             })
           }
+
+          if(searchResult.beaches && searchResult.beaches.length > 0) {
+            searchResult.beaches.forEach(beach => {
+              entry = {
+                id: searchResult.id,
+                type: "Beach",
+                name: beach.name,
+                city: searchResult.city,
+                description: beach.name,
+                country: searchResult.country,
+                image: `https://source.unsplash.com/1600x900/?${beach.name}`,
+                iso2: searchResult.iso2,
+                iso3: searchResult.iso3,
+                location: {
+                  latitude: beach.lat,
+                  longitude: beach.lng
+                }
+              }
+              matchedCities.push(entry);
+            })
+          }
             
           return matchedCities;
         });

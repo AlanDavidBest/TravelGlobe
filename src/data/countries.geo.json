@@ -5099,6 +5099,11 @@
           "name": "Blackpool Beach",
           "lat": 53.7902,
           "lng": -3.0554
+        },
+        {
+          "name": "Ruislip Lido London Beach",
+          "lat": 51.5903,
+          "lng": -0.4323
         }
       ],
       "properties": { "name": "United Kingdom" },
