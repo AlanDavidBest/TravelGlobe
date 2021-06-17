@@ -80,9 +80,6 @@ class Search extends React.Component {
             && matchedCities.filter(x => x.iso3 === country.id).length < 1
         )
         .map((searchResult) => {
-          console.log(searchResult.id)
-          console.log( cities.filter(x => x.iso3 === searchResult.id)[0].lat)
-
           let entry = {
             id: searchResult.id,
             type: "Country",

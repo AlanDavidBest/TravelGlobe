@@ -5,11 +5,10 @@ import "./Info.css";
 
 export const Info = ({ locationId, locationName, x, y }) => {
   let destination = CapitalCitiesInfo.find(x => x.id === locationId);
-
   if (!destination) {
     destination = {
-      "title": locationName,
-      "image": `https://source.unsplash.com/1600x900/?${locationName}`,
+      "title": locationId.entry.id.name,
+      "image": locationId.entry.id.image,
       "description": "Unfortunately, we have no data yet!",
       "rating": Math.floor(Math.random() * 5),
       "weather": [],

@@ -33,6 +33,7 @@ class Global extends React.Component {
       },
       locationId: null,
       locationName: "",
+      selectedItem: null,
       userLat: 0,
       userLng: 0,
     };
@@ -43,8 +44,12 @@ class Global extends React.Component {
     this.isPopoverOpen = this.isPopoverOpen.bind(this);
     this.onEntityClick = this.onEntityClick.bind(this);
     this.onViewerMove = this.onViewerMove.bind(this);
+    this.setSelectedItem = this.setSelectedItem.bind(this);
   }
 
+  setSelectedItem(item) {
+    this.setState({ selectedItem: item });
+  }
   handleMatchedCities(matches) {
     this.setState({ matchedCities: matches });
   }
@@ -57,15 +62,14 @@ class Global extends React.Component {
   }
 
   flyToDestination(destination) {
-    console.log("Destination: " + JSON.stringify(destination))
     let altitude = destination.type === "Country" ? COUNTRY_ZOOM : CITY_ZOOM;
-    console.log("Altitude: " + altitude)
     this.ref.current.cesiumElement.camera.flyTo({
       destination: Cartesian3.fromDegrees(
         destination.longitude,
         destination.latitude,
         altitude
-      )
+      ),
+      complete: this.defaultPopUp
     });
 
     this.setState({
@@ -89,12 +93,27 @@ class Global extends React.Component {
     });
   }
 
-  defaultPopUp =() => 
-    this.onEntityClick( ...this.getScreenCentre(), {id: this.state.locationId, city: this.state.locationCity });
-  
+  defaultPopUp =() => {
+    let screenCoords = this.getScreenCentre()
+    let entry = {
+      entry: {
+        id: this.state.selectedItem,
+        city: this.state.locationCity
+      }
+    }
+    this.onEntityClick( screenCoords, entry)
+  }
+
+  getScreenCentre = () => {            
+    return {
+      position: {
+        x: this.ref.current.cesiumElement.container.clientWidth / 2, 
+        y: this.ref.current.cesiumElement.container.clientHeight / 2
+      }
+    }
+  }
+
   onEntityClick = ({ position: { x, y } }, id, city) => {
-    // const clickAsCartesian3 = screenClickToCartesian3(this.ref.current, x, y);
-    //
     this.setState({
       cardPosition: { x, y },
       locationId: id,
@@ -111,15 +130,6 @@ class Global extends React.Component {
     });
   };
 
-  getScreenCentre = () => {            
-    return {
-              position: {
-                x: this.ref.current.cesiumElement.container.clientWidth / 2, 
-                y: this.ref.current.cesiumElement.container.clientHeight / 2
-              }
-            }
-  }
-
   render() {
     return (
       <>
@@ -128,6 +138,7 @@ class Global extends React.Component {
           flyTo={this.flyToDestination}
           handleMatchedCities={this.handleMatchedCities}
           onEntityClick={this.onEntityClick}
+          setSelectedItem={this.setSelectedItem}
         />
         <Viewer
           ref={this.ref}
@@ -159,7 +170,8 @@ class Global extends React.Component {
             return (
               <>
               <Entity
-                onClick={e => this.onEntityClick(e, entry)}
+                onClick={e => {
+                  this.onEntityClick(e, entry)}}
                 name={entry.city}
                 billboard={{
                   image: icon,
