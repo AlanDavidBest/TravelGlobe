@@ -179,7 +179,7 @@ class Global extends React.Component {
                   pixelOffset: new Cartesian2(0, -20),
                 }}
                 position={Cartesian3.fromDegrees(entry.location.longitude, entry.location.latitude, 0)}
-              ></Entity>
+              />
               </>
             );
           })}
@@ -195,8 +195,7 @@ class Global extends React.Component {
               this.state.userLat,
               0
             )}
-          ></Entity>
-
+          />
           {/* <Plane
             longitude={-0.124625}
             latitude={51.510357}
