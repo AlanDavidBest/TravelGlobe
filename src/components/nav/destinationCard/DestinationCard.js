@@ -45,7 +45,7 @@ class DestinationCard extends React.Component {
           <Card.Img src={this.props.item.image} alt="Card image" />
           <Card.ImgOverlay>
             <Card.Body>
-              <Card.Title>{this.props.item.name}</Card.Title>
+              <Card.Title className="destination-card-title">{this.props.item.name}</Card.Title>
             </Card.Body>
           </Card.ImgOverlay>
         </Card>

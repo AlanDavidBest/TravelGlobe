@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, Button } from "react-bootstrap";
+import { Carousel, Button, Card } from "react-bootstrap";
 import "./InfoCarousel.css";
 
 export const InfoCarousel = ({ title, image, description, rating, weather, currency, languages }) => (
@@ -25,7 +25,7 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
                 <div className="rating-container">
                     {
                         [...Array(rating)].map((s, i) => (
-                            <span key={i}>&#9733;</span>
+                            <span key={i}>⭐</span>
                         ))
                     }
                 </div>
@@ -71,6 +71,20 @@ export const InfoCarousel = ({ title, image, description, rating, weather, curre
                 alt={title}
             />
         </Carousel.Item>
+
+        <Carousel.Item>
+            <DealsWidget title={title} />
+
+            <div
+                className="opacity-container"
+            />
+
+            <img
+                className="d-block"
+                src={image}
+                alt={title}
+            />
+        </Carousel.Item>
     </Carousel>
 );
 
@@ -85,7 +99,7 @@ const WeatherWidget = ({ title, weather }) => {
 
     return (
         <Carousel.Caption>
-            <h1>{title}</h1>
+            <h1>☁️ {title} ☁️</h1>
             <div className="weather-container">
                 {
                     weather.map(({ name, celsius }) => (
@@ -102,19 +116,19 @@ const WeatherWidget = ({ title, weather }) => {
 
             <div className="weather-container">
                         <div className="weather-item">
-                            <h3>From MAN: </h3>
+                            <h4>From MAN: </h4>
                             <i className="fas fa-plane" />
-                            <h4>02:45hrs</h4>
+                            <h5>02:45hrs</h5>
                         </div>
                         <div className="weather-item">
-                            <h3>From LPL: </h3>
+                            <h4>From LPL: </h4>
                             <i className="fas fa-plane" />
-                            <h4>02:57hrs</h4>
+                            <h5>02:57hrs</h5>
                         </div>
                         <div className="weather-item">
-                            <h3>From BHX: </h3>
+                            <h4>From BHX: </h4>
                             <i className="fas fa-plane" />
-                            <h4>02:32hrs</h4>
+                            <h5>02:32hrs</h5>
                         </div>
             </div>
         </Carousel.Caption>
@@ -128,18 +142,18 @@ const InfoWidget = ({ title, currency, languages }) => {
     return (
         <Carousel.Caption>
             <>
-            <h1>{title}</h1>
+            <h1>💵 {title} 💵</h1>
             <div class="currency-container">
                 <h4>Your Local Currency:</h4>
                 {
                     atHomeCurrency.map((c) => (
                         <div className="currency-item-athome">
                             { c.prepend &&
-                                <span>{`${c.icon}${c.amount}`}</span>
+                                <h4>{`${c.icon}${c.amount}`}</h4>
                             }
 
                             { !c.prepend &&
-                                <span>{`${c.amount}${c.icon}`}</span>
+                                <h4>{`${c.icon}${c.amount}`}</h4>
                             }
                         </div>
                     ))
@@ -150,11 +164,11 @@ const InfoWidget = ({ title, currency, languages }) => {
                     otherCurrencies.map((c) => (
                         <div className="currency-item">
                             { c.prepend &&
-                                <span>{`${c.icon}${c.amount}`}</span>
+                                <h4>{`${c.icon}${c.amount}`}</h4>
                             }
 
                             { !c.prepend &&
-                                <span>{`${c.amount}${c.icon}`}</span>
+                                <h4>{`${c.icon}${c.amount}`}</h4>
                             }
                         </div>
                     ))
@@ -165,14 +179,58 @@ const InfoWidget = ({ title, currency, languages }) => {
                 <h4>Your Destination Languages:</h4>
                 {
                     languages.map((l, i) => (
-                        <span>
+                        <h4>
                             {i > 0 && ", "}
                             {`${l}`}
-                        </span>
+                        </h4>
                     ))
                 }
             </div>
             </>
+        </Carousel.Caption>
+    )
+}
+
+const DealsWidget = ({ title }) => {
+    return (
+        <Carousel.Caption>
+            <h1>🔥 Holiday Deals! 🔥</h1>
+
+            <br/>
+            <div style={{ display: 'flex', color: 'black'}}>
+                <Card style={{ width: '10rem', marginLeft: '5px', marginRight: '5px' }}>
+                    <Card.Body>
+                        <Card.Title>Basic</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">£99pp</Card.Subtitle>
+                        <Card.Text className="text-muted">
+                            Two star hotel for 4 nights!
+                        </Card.Text>
+                        <Card.Link href="#">BUY NOW</Card.Link>
+                    </Card.Body>
+                </Card>
+
+                <Card style={{ width: '10rem', marginLeft: '5px', marginRight: '5px' }}>
+                    <Card.Body>
+                        <Card.Title>Premium</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">£149pp</Card.Subtitle>
+                        <Card.Text className="text-muted">
+                            Three star hotel for 4 nights!
+                        </Card.Text>
+                        <Card.Link href="#">BUY NOW</Card.Link>
+                    </Card.Body>
+                </Card>
+                
+                <Card style={{ width: '10rem', marginLeft: '5px', marginRight: '5px' }}>
+                    <Card.Body>
+                        <Card.Title>All-Star</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">£259pp</Card.Subtitle>
+                        <Card.Text className="text-muted">
+                            Five star hotel for 4 nights!
+                        </Card.Text>
+                        <Card.Link href="#">BUY NOW</Card.Link>
+                    </Card.Body>
+                </Card>
+            </div>
         </Carousel.Caption>
     )
 }
